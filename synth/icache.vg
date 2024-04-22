@@ -1,0 +1,462 @@
+/////////////////////////////////////////////////////////////
+// Created by: Synopsys DC Expert(TM) in wire load mode
+// Version   : O-2018.06
+// Date      : Tue Dec  8 21:55:14 2020
+/////////////////////////////////////////////////////////////
+
+
+module icache ( clock, reset, Imem2Ictrl_response, Imem2Ictrl_tag, 
+        reject_I_req, proc2Ictrl_addr, Icache2Ictrl_data, Icache2Ictrl_valid, 
+        Ictrl2Imem_command, Ictrl2Imem_addr, Ictrl2proc_data, Ictrl2proc_valid, 
+    .current_addr({\current_addr[tag][8] , \current_addr[tag][7] , 
+        \current_addr[tag][6] , \current_addr[tag][5] , \current_addr[tag][4] , 
+        \current_addr[tag][3] , \current_addr[tag][2] , \current_addr[tag][1] , 
+        \current_addr[tag][0] , \current_addr[idx][3] , \current_addr[idx][2] , 
+        \current_addr[idx][1] , \current_addr[idx][0] , \current_addr[bo][2] , 
+        \current_addr[bo][1] , \current_addr[bo][0] }), 
+        Ictrl2Icache_mem_write_en );
+  input [3:0] Imem2Ictrl_response;
+  input [3:0] Imem2Ictrl_tag;
+  input [31:0] proc2Ictrl_addr;
+  input [63:0] Icache2Ictrl_data;
+  output [1:0] Ictrl2Imem_command;
+  output [31:0] Ictrl2Imem_addr;
+  output [63:0] Ictrl2proc_data;
+  input clock, reset, reject_I_req, Icache2Ictrl_valid;
+  output Ictrl2proc_valid, \current_addr[tag][8] , \current_addr[tag][7] ,
+         \current_addr[tag][6] , \current_addr[tag][5] ,
+         \current_addr[tag][4] , \current_addr[tag][3] ,
+         \current_addr[tag][2] , \current_addr[tag][1] ,
+         \current_addr[tag][0] , \current_addr[idx][3] ,
+         \current_addr[idx][2] , \current_addr[idx][1] ,
+         \current_addr[idx][0] , \current_addr[bo][2] , \current_addr[bo][1] ,
+         \current_addr[bo][0] , Ictrl2Icache_mem_write_en;
+  wire   \last_addr[tag][4] , \last_addr[idx][3] , \last_addr[idx][2] ,
+         \last_addr[idx][1] , miss_outstanding, unanswered_miss, n25, n26, n27,
+         n43, n44, n45, n46, net349, net350, net352, net354, net355, net358,
+         net442, net2069, net2070, net2072, net2073, net2076, net2078, net2079,
+         net2080, net2081, net2096, net2097, net2100, net2103, net2111,
+         net2112, net2113, net2115, net2125, net2129, net2149, net2152,
+         net2156, net2160, net2159, net2163, net2167, net2166, net2171,
+         net2170, net2175, net2174, net2179, net2178, net2183, net2182,
+         net2187, net2191, net2190, net2195, net2198, net2201, net2206,
+         net2210, net2209, net2254, net2260, net2266, net2272, net2284,
+         net2290, net2296, net2308, net2461, net2473, net2489, net2496,
+         net2499, net2664, net3047, net3093, net3095, net3254, net3249,
+         net3248, net3242, net3241, net3240, net3239, net3238, net3237,
+         net3235, net3232, net3230, net3229, net3227, net3220, net3213,
+         net3184, net3169, net3168, net3167, net3166, net3151, net3144,
+         net3140, net3407, net3413, net3416, net3428, net3436, net3437,
+         net3439, net3443, net3277, net3276, net2083, net2082, net348, net3455,
+         net3419, net3403, net3399, net3224, net3223, net3222, net3221,
+         net2137, net2132, net2075, net2074, net2094, net2093, net3252,
+         net3251, net2101, net3401, net3259, net3253, net3250, net3247,
+         net3170, net3141, net2091, net2090, net2088, net2087, net2086,
+         net2084, n55, n56, n57, n59, n61, n63, n65, n67, n69, n71, n73, n75,
+         n77, n79, n81, n83, n85, n87, n89, n91, n93, n95, n97, n99, n101,
+         n103, n105, n107, n109, n111, n113, n115, n117, n119, n121, n123,
+         n125, n127, n129, n131, n133, n135, n137, n139, n141, n143, n145,
+         n147, n149, n151, n153, n155, n157, n159, n161, n163, n165, n167,
+         n169, n171, n173, n175, n177, n179, n181, n183, n185, n187, n189,
+         n191, n193, n195, n197, n199, n201, n203, n205, n207, n209, n211,
+         n213, n215, n217, n219, n221, n223, n224, n225, n226, n227, n228,
+         n229, n231, n232, n233, n234, n235, n236;
+  assign Ictrl2Imem_command[0] = net2125;
+  assign Ictrl2Imem_addr[14] = net2149;
+  assign Ictrl2Imem_addr[8] = net2152;
+  assign Ictrl2Imem_addr[11] = net2156;
+  assign Ictrl2Imem_addr[13] = net2160;
+  assign Ictrl2Imem_addr[3] = net2163;
+  assign Ictrl2Imem_addr[15] = net2167;
+  assign Ictrl2Imem_addr[7] = net2171;
+  assign Ictrl2Imem_addr[6] = net2175;
+  assign Ictrl2Imem_addr[12] = net2179;
+  assign Ictrl2Imem_addr[9] = net2183;
+  assign Ictrl2Imem_addr[5] = net2187;
+  assign Ictrl2Imem_addr[4] = net2191;
+  assign Ictrl2Imem_addr[10] = net2195;
+  assign \current_addr[tag][1]  = net2198;
+  assign \current_addr[idx][0]  = net2201;
+  assign \current_addr[tag][7]  = net2206;
+  assign net2209 = proc2Ictrl_addr[3];
+  assign \current_addr[tag][4]  = net2254;
+  assign \current_addr[tag][6]  = net2260;
+  assign \current_addr[tag][8]  = net2266;
+  assign \current_addr[tag][0]  = net2272;
+  assign \current_addr[tag][5]  = net2284;
+  assign \current_addr[tag][2]  = net2290;
+  assign \current_addr[idx][2]  = net2296;
+  assign \current_addr[tag][3]  = net2308;
+  assign Ictrl2proc_valid = net3047;
+  assign \current_addr[idx][1]  = net3443;
+
+  dffss2 \last_addr_reg[tag][1]  ( .DIN(reset), .SETB(net352), .CLK(clock), 
+        .Q(net2473) );
+  dffss2 \last_addr_reg[idx][0]  ( .DIN(reset), .SETB(net2210), .CLK(clock), 
+        .QN(net2664) );
+  dffcs1 \current_mem_tag_reg[2]  ( .CLRB(n44), .DIN(n236), .CLK(clock), .Q(
+        n55), .QN(n25) );
+  dffss1 \last_addr_reg[tag][5]  ( .DIN(reset), .SETB(net2178), .CLK(clock), 
+        .QN(n229) );
+  dffss2 \last_addr_reg[tag][7]  ( .DIN(reset), .SETB(net358), .CLK(clock), 
+        .Q(net3436), .QN(net2489) );
+  dffss2 \last_addr_reg[tag][6]  ( .DIN(reset), .SETB(net2159), .CLK(clock), 
+        .QN(net2496) );
+  dffss2 \last_addr_reg[tag][0]  ( .DIN(reset), .SETB(net2170), .CLK(clock), 
+        .QN(net2499) );
+  dffcs1 \current_mem_tag_reg[1]  ( .CLRB(n43), .DIN(n236), .CLK(clock), .Q(
+        net3093), .QN(n26) );
+  dffss2 \last_addr_reg[idx][1]  ( .DIN(reset), .SETB(net2190), .CLK(clock), 
+        .Q(\last_addr[idx][1] ) );
+  dffcs1 \current_mem_tag_reg[3]  ( .CLRB(n45), .DIN(n236), .CLK(clock), .Q(
+        net3095) );
+  dffss2 \last_addr_reg[idx][2]  ( .DIN(reset), .SETB(net349), .CLK(clock), 
+        .Q(\last_addr[idx][2] ) );
+  dffss2 \last_addr_reg[tag][3]  ( .DIN(reset), .SETB(net354), .CLK(clock), 
+        .QN(net2461) );
+  dffss2 \last_addr_reg[tag][4]  ( .DIN(reset), .SETB(net355), .CLK(clock), 
+        .Q(\last_addr[tag][4] ) );
+  dffss2 \last_addr_reg[idx][3]  ( .DIN(reset), .SETB(net2174), .CLK(clock), 
+        .Q(\last_addr[idx][3] ) );
+  dffss2 \last_addr_reg[tag][8]  ( .DIN(reset), .SETB(net2166), .CLK(clock), 
+        .QN(net3413) );
+  dffss2 \last_addr_reg[tag][2]  ( .DIN(reset), .SETB(net2182), .CLK(clock), 
+        .QN(net3416) );
+  dffcs1 miss_outstanding_reg ( .CLRB(unanswered_miss), .DIN(n236), .CLK(clock), .Q(miss_outstanding), .QN(net3247) );
+  dffcs1 \current_mem_tag_reg[0]  ( .CLRB(n46), .DIN(n236), .CLK(clock), .Q(
+        net3144), .QN(n27) );
+  ib1s1 U45 ( .DIN(1'b1), .Q(Ictrl2Imem_addr[0]) );
+  ib1s1 U47 ( .DIN(1'b1), .Q(Ictrl2Imem_addr[1]) );
+  ib1s1 U49 ( .DIN(1'b1), .Q(Ictrl2Imem_addr[2]) );
+  ib1s1 U51 ( .DIN(1'b1), .Q(Ictrl2Imem_command[1]) );
+  and2s2 U53 ( .DIN1(net3437), .DIN2(net2112), .Q(net3232) );
+  xor2s2 U54 ( .DIN1(proc2Ictrl_addr[13]), .DIN2(net2496), .Q(net2078) );
+  xor2s2 U55 ( .DIN1(proc2Ictrl_addr[7]), .DIN2(net2499), .Q(net2112) );
+  xor2s2 U56 ( .DIN1(proc2Ictrl_addr[8]), .DIN2(net2473), .Q(net2137) );
+  nor2s1 U57 ( .DIN1(Icache2Ictrl_valid), .DIN2(net2069), .Q(n231) );
+  i1s1 U58 ( .DIN(net2115), .Q(net2125) );
+  i1s1 U59 ( .DIN(net348), .Q(net3443) );
+  ib1s1 U60 ( .DIN(net350), .Q(\current_addr[idx][3] ) );
+  ib1s1 U61 ( .DIN(net358), .Q(net2206) );
+  xor2s1 U62 ( .DIN1(n27), .DIN2(Imem2Ictrl_tag[0]), .Q(n56) );
+  hi1s1 U63 ( .DIN(Icache2Ictrl_data[0]), .Q(n57) );
+  hi1s1 U64 ( .DIN(n57), .Q(Ictrl2proc_data[0]) );
+  hi1s1 U65 ( .DIN(Icache2Ictrl_data[1]), .Q(n59) );
+  hi1s1 U66 ( .DIN(n59), .Q(Ictrl2proc_data[1]) );
+  hi1s1 U67 ( .DIN(Icache2Ictrl_data[2]), .Q(n61) );
+  hi1s1 U68 ( .DIN(n61), .Q(Ictrl2proc_data[2]) );
+  hi1s1 U69 ( .DIN(Icache2Ictrl_data[3]), .Q(n63) );
+  hi1s1 U70 ( .DIN(n63), .Q(Ictrl2proc_data[3]) );
+  hi1s1 U71 ( .DIN(Icache2Ictrl_data[4]), .Q(n65) );
+  hi1s1 U72 ( .DIN(n65), .Q(Ictrl2proc_data[4]) );
+  hi1s1 U73 ( .DIN(Icache2Ictrl_data[5]), .Q(n67) );
+  hi1s1 U74 ( .DIN(n67), .Q(Ictrl2proc_data[5]) );
+  hi1s1 U75 ( .DIN(Icache2Ictrl_data[6]), .Q(n69) );
+  hi1s1 U76 ( .DIN(n69), .Q(Ictrl2proc_data[6]) );
+  hi1s1 U77 ( .DIN(Icache2Ictrl_data[7]), .Q(n71) );
+  hi1s1 U78 ( .DIN(n71), .Q(Ictrl2proc_data[7]) );
+  hi1s1 U79 ( .DIN(Icache2Ictrl_data[8]), .Q(n73) );
+  hi1s1 U80 ( .DIN(n73), .Q(Ictrl2proc_data[8]) );
+  hi1s1 U81 ( .DIN(Icache2Ictrl_data[9]), .Q(n75) );
+  hi1s1 U82 ( .DIN(n75), .Q(Ictrl2proc_data[9]) );
+  hi1s1 U83 ( .DIN(Icache2Ictrl_data[10]), .Q(n77) );
+  hi1s1 U84 ( .DIN(n77), .Q(Ictrl2proc_data[10]) );
+  hi1s1 U85 ( .DIN(Icache2Ictrl_data[11]), .Q(n79) );
+  hi1s1 U86 ( .DIN(n79), .Q(Ictrl2proc_data[11]) );
+  hi1s1 U87 ( .DIN(Icache2Ictrl_data[12]), .Q(n81) );
+  hi1s1 U88 ( .DIN(n81), .Q(Ictrl2proc_data[12]) );
+  hi1s1 U89 ( .DIN(Icache2Ictrl_data[13]), .Q(n83) );
+  hi1s1 U90 ( .DIN(n83), .Q(Ictrl2proc_data[13]) );
+  hi1s1 U91 ( .DIN(Icache2Ictrl_data[14]), .Q(n85) );
+  hi1s1 U92 ( .DIN(n85), .Q(Ictrl2proc_data[14]) );
+  hi1s1 U93 ( .DIN(Icache2Ictrl_data[15]), .Q(n87) );
+  hi1s1 U94 ( .DIN(n87), .Q(Ictrl2proc_data[15]) );
+  hi1s1 U95 ( .DIN(Icache2Ictrl_data[16]), .Q(n89) );
+  hi1s1 U96 ( .DIN(n89), .Q(Ictrl2proc_data[16]) );
+  hi1s1 U97 ( .DIN(Icache2Ictrl_data[17]), .Q(n91) );
+  hi1s1 U98 ( .DIN(n91), .Q(Ictrl2proc_data[17]) );
+  hi1s1 U99 ( .DIN(Icache2Ictrl_data[18]), .Q(n93) );
+  hi1s1 U100 ( .DIN(n93), .Q(Ictrl2proc_data[18]) );
+  hi1s1 U101 ( .DIN(Icache2Ictrl_data[19]), .Q(n95) );
+  hi1s1 U102 ( .DIN(n95), .Q(Ictrl2proc_data[19]) );
+  hi1s1 U103 ( .DIN(Icache2Ictrl_data[20]), .Q(n97) );
+  hi1s1 U104 ( .DIN(n97), .Q(Ictrl2proc_data[20]) );
+  hi1s1 U105 ( .DIN(Icache2Ictrl_data[21]), .Q(n99) );
+  hi1s1 U106 ( .DIN(n99), .Q(Ictrl2proc_data[21]) );
+  hi1s1 U107 ( .DIN(Icache2Ictrl_data[22]), .Q(n101) );
+  hi1s1 U108 ( .DIN(n101), .Q(Ictrl2proc_data[22]) );
+  hi1s1 U109 ( .DIN(Icache2Ictrl_data[23]), .Q(n103) );
+  hi1s1 U110 ( .DIN(n103), .Q(Ictrl2proc_data[23]) );
+  hi1s1 U111 ( .DIN(Icache2Ictrl_data[24]), .Q(n105) );
+  hi1s1 U112 ( .DIN(n105), .Q(Ictrl2proc_data[24]) );
+  hi1s1 U113 ( .DIN(Icache2Ictrl_data[25]), .Q(n107) );
+  hi1s1 U114 ( .DIN(n107), .Q(Ictrl2proc_data[25]) );
+  hi1s1 U115 ( .DIN(Icache2Ictrl_data[26]), .Q(n109) );
+  hi1s1 U116 ( .DIN(n109), .Q(Ictrl2proc_data[26]) );
+  hi1s1 U117 ( .DIN(Icache2Ictrl_data[27]), .Q(n111) );
+  hi1s1 U118 ( .DIN(n111), .Q(Ictrl2proc_data[27]) );
+  hi1s1 U119 ( .DIN(Icache2Ictrl_data[28]), .Q(n113) );
+  hi1s1 U120 ( .DIN(n113), .Q(Ictrl2proc_data[28]) );
+  hi1s1 U121 ( .DIN(Icache2Ictrl_data[29]), .Q(n115) );
+  hi1s1 U122 ( .DIN(n115), .Q(Ictrl2proc_data[29]) );
+  hi1s1 U123 ( .DIN(Icache2Ictrl_data[30]), .Q(n117) );
+  hi1s1 U124 ( .DIN(n117), .Q(Ictrl2proc_data[30]) );
+  hi1s1 U125 ( .DIN(Icache2Ictrl_data[31]), .Q(n119) );
+  hi1s1 U126 ( .DIN(n119), .Q(Ictrl2proc_data[31]) );
+  hi1s1 U127 ( .DIN(Icache2Ictrl_data[32]), .Q(n121) );
+  hi1s1 U128 ( .DIN(n121), .Q(Ictrl2proc_data[32]) );
+  hi1s1 U129 ( .DIN(Icache2Ictrl_data[33]), .Q(n123) );
+  hi1s1 U130 ( .DIN(n123), .Q(Ictrl2proc_data[33]) );
+  hi1s1 U131 ( .DIN(Icache2Ictrl_data[34]), .Q(n125) );
+  hi1s1 U132 ( .DIN(n125), .Q(Ictrl2proc_data[34]) );
+  hi1s1 U133 ( .DIN(Icache2Ictrl_data[35]), .Q(n127) );
+  hi1s1 U134 ( .DIN(n127), .Q(Ictrl2proc_data[35]) );
+  hi1s1 U135 ( .DIN(Icache2Ictrl_data[36]), .Q(n129) );
+  hi1s1 U136 ( .DIN(n129), .Q(Ictrl2proc_data[36]) );
+  hi1s1 U137 ( .DIN(Icache2Ictrl_data[37]), .Q(n131) );
+  hi1s1 U138 ( .DIN(n131), .Q(Ictrl2proc_data[37]) );
+  hi1s1 U139 ( .DIN(Icache2Ictrl_data[38]), .Q(n133) );
+  hi1s1 U140 ( .DIN(n133), .Q(Ictrl2proc_data[38]) );
+  hi1s1 U141 ( .DIN(Icache2Ictrl_data[39]), .Q(n135) );
+  hi1s1 U142 ( .DIN(n135), .Q(Ictrl2proc_data[39]) );
+  hi1s1 U143 ( .DIN(Icache2Ictrl_data[40]), .Q(n137) );
+  hi1s1 U144 ( .DIN(n137), .Q(Ictrl2proc_data[40]) );
+  hi1s1 U145 ( .DIN(Icache2Ictrl_data[41]), .Q(n139) );
+  hi1s1 U146 ( .DIN(n139), .Q(Ictrl2proc_data[41]) );
+  hi1s1 U147 ( .DIN(Icache2Ictrl_data[42]), .Q(n141) );
+  hi1s1 U148 ( .DIN(n141), .Q(Ictrl2proc_data[42]) );
+  hi1s1 U149 ( .DIN(Icache2Ictrl_data[43]), .Q(n143) );
+  hi1s1 U150 ( .DIN(n143), .Q(Ictrl2proc_data[43]) );
+  hi1s1 U151 ( .DIN(Icache2Ictrl_data[44]), .Q(n145) );
+  hi1s1 U152 ( .DIN(n145), .Q(Ictrl2proc_data[44]) );
+  hi1s1 U153 ( .DIN(Icache2Ictrl_data[45]), .Q(n147) );
+  hi1s1 U154 ( .DIN(n147), .Q(Ictrl2proc_data[45]) );
+  hi1s1 U155 ( .DIN(Icache2Ictrl_data[46]), .Q(n149) );
+  hi1s1 U156 ( .DIN(n149), .Q(Ictrl2proc_data[46]) );
+  hi1s1 U157 ( .DIN(Icache2Ictrl_data[47]), .Q(n151) );
+  hi1s1 U158 ( .DIN(n151), .Q(Ictrl2proc_data[47]) );
+  hi1s1 U159 ( .DIN(Icache2Ictrl_data[48]), .Q(n153) );
+  hi1s1 U160 ( .DIN(n153), .Q(Ictrl2proc_data[48]) );
+  hi1s1 U161 ( .DIN(Icache2Ictrl_data[49]), .Q(n155) );
+  hi1s1 U162 ( .DIN(n155), .Q(Ictrl2proc_data[49]) );
+  hi1s1 U163 ( .DIN(Icache2Ictrl_data[50]), .Q(n157) );
+  hi1s1 U164 ( .DIN(n157), .Q(Ictrl2proc_data[50]) );
+  hi1s1 U165 ( .DIN(Icache2Ictrl_data[51]), .Q(n159) );
+  hi1s1 U166 ( .DIN(n159), .Q(Ictrl2proc_data[51]) );
+  hi1s1 U167 ( .DIN(Icache2Ictrl_data[52]), .Q(n161) );
+  hi1s1 U168 ( .DIN(n161), .Q(Ictrl2proc_data[52]) );
+  hi1s1 U169 ( .DIN(Icache2Ictrl_data[53]), .Q(n163) );
+  hi1s1 U170 ( .DIN(n163), .Q(Ictrl2proc_data[53]) );
+  hi1s1 U171 ( .DIN(Icache2Ictrl_data[54]), .Q(n165) );
+  hi1s1 U172 ( .DIN(n165), .Q(Ictrl2proc_data[54]) );
+  hi1s1 U173 ( .DIN(Icache2Ictrl_data[55]), .Q(n167) );
+  hi1s1 U174 ( .DIN(n167), .Q(Ictrl2proc_data[55]) );
+  hi1s1 U175 ( .DIN(Icache2Ictrl_data[56]), .Q(n169) );
+  hi1s1 U176 ( .DIN(n169), .Q(Ictrl2proc_data[56]) );
+  hi1s1 U177 ( .DIN(Icache2Ictrl_data[57]), .Q(n171) );
+  hi1s1 U178 ( .DIN(n171), .Q(Ictrl2proc_data[57]) );
+  hi1s1 U179 ( .DIN(Icache2Ictrl_data[58]), .Q(n173) );
+  hi1s1 U180 ( .DIN(n173), .Q(Ictrl2proc_data[58]) );
+  hi1s1 U181 ( .DIN(Icache2Ictrl_data[59]), .Q(n175) );
+  hi1s1 U182 ( .DIN(n175), .Q(Ictrl2proc_data[59]) );
+  hi1s1 U183 ( .DIN(Icache2Ictrl_data[60]), .Q(n177) );
+  hi1s1 U184 ( .DIN(n177), .Q(Ictrl2proc_data[60]) );
+  hi1s1 U185 ( .DIN(Icache2Ictrl_data[61]), .Q(n179) );
+  hi1s1 U186 ( .DIN(n179), .Q(Ictrl2proc_data[61]) );
+  hi1s1 U187 ( .DIN(Icache2Ictrl_data[62]), .Q(n181) );
+  hi1s1 U188 ( .DIN(n181), .Q(Ictrl2proc_data[62]) );
+  hi1s1 U189 ( .DIN(Icache2Ictrl_data[63]), .Q(n183) );
+  hi1s1 U190 ( .DIN(n183), .Q(Ictrl2proc_data[63]) );
+  hi1s1 U191 ( .DIN(proc2Ictrl_addr[0]), .Q(n185) );
+  hi1s1 U192 ( .DIN(n185), .Q(\current_addr[bo][0] ) );
+  hi1s1 U193 ( .DIN(proc2Ictrl_addr[1]), .Q(n187) );
+  hi1s1 U194 ( .DIN(n187), .Q(\current_addr[bo][1] ) );
+  hi1s1 U195 ( .DIN(proc2Ictrl_addr[2]), .Q(n189) );
+  hi1s1 U196 ( .DIN(n189), .Q(\current_addr[bo][2] ) );
+  hi1s1 U197 ( .DIN(proc2Ictrl_addr[16]), .Q(n191) );
+  hi1s1 U198 ( .DIN(n191), .Q(Ictrl2Imem_addr[16]) );
+  hi1s1 U199 ( .DIN(proc2Ictrl_addr[17]), .Q(n193) );
+  hi1s1 U200 ( .DIN(n193), .Q(Ictrl2Imem_addr[17]) );
+  hi1s1 U201 ( .DIN(proc2Ictrl_addr[18]), .Q(n195) );
+  hi1s1 U202 ( .DIN(n195), .Q(Ictrl2Imem_addr[18]) );
+  hi1s1 U203 ( .DIN(proc2Ictrl_addr[19]), .Q(n197) );
+  hi1s1 U204 ( .DIN(n197), .Q(Ictrl2Imem_addr[19]) );
+  hi1s1 U205 ( .DIN(proc2Ictrl_addr[20]), .Q(n199) );
+  hi1s1 U206 ( .DIN(n199), .Q(Ictrl2Imem_addr[20]) );
+  hi1s1 U207 ( .DIN(proc2Ictrl_addr[21]), .Q(n201) );
+  hi1s1 U208 ( .DIN(n201), .Q(Ictrl2Imem_addr[21]) );
+  hi1s1 U209 ( .DIN(proc2Ictrl_addr[22]), .Q(n203) );
+  hi1s1 U210 ( .DIN(n203), .Q(Ictrl2Imem_addr[22]) );
+  hi1s1 U211 ( .DIN(proc2Ictrl_addr[23]), .Q(n205) );
+  hi1s1 U212 ( .DIN(n205), .Q(Ictrl2Imem_addr[23]) );
+  hi1s1 U213 ( .DIN(proc2Ictrl_addr[24]), .Q(n207) );
+  hi1s1 U214 ( .DIN(n207), .Q(Ictrl2Imem_addr[24]) );
+  hi1s1 U215 ( .DIN(proc2Ictrl_addr[25]), .Q(n209) );
+  hi1s1 U216 ( .DIN(n209), .Q(Ictrl2Imem_addr[25]) );
+  hi1s1 U217 ( .DIN(proc2Ictrl_addr[26]), .Q(n211) );
+  hi1s1 U218 ( .DIN(n211), .Q(Ictrl2Imem_addr[26]) );
+  hi1s1 U219 ( .DIN(proc2Ictrl_addr[27]), .Q(n213) );
+  hi1s1 U220 ( .DIN(n213), .Q(Ictrl2Imem_addr[27]) );
+  hi1s1 U221 ( .DIN(proc2Ictrl_addr[28]), .Q(n215) );
+  hi1s1 U222 ( .DIN(n215), .Q(Ictrl2Imem_addr[28]) );
+  hi1s1 U223 ( .DIN(proc2Ictrl_addr[29]), .Q(n217) );
+  hi1s1 U224 ( .DIN(n217), .Q(Ictrl2Imem_addr[29]) );
+  hi1s1 U225 ( .DIN(proc2Ictrl_addr[30]), .Q(n219) );
+  hi1s1 U226 ( .DIN(n219), .Q(Ictrl2Imem_addr[30]) );
+  hi1s1 U227 ( .DIN(proc2Ictrl_addr[31]), .Q(n221) );
+  hi1s1 U228 ( .DIN(n221), .Q(Ictrl2Imem_addr[31]) );
+  or5s2 U229 ( .DIN1(net2137), .DIN2(net3251), .DIN3(net3252), .DIN4(net3253), 
+        .DIN5(miss_outstanding), .Q(net3170) );
+  nnd3s2 U230 ( .DIN1(n223), .DIN2(n224), .DIN3(net3455), .Q(net3222) );
+  ib1s1 U231 ( .DIN(net2137), .Q(n223) );
+  ib1s1 U232 ( .DIN(net3399), .Q(n224) );
+  nnd2s1 U233 ( .DIN1(net2090), .DIN2(net2091), .Q(n45) );
+  nnd4s1 U234 ( .DIN1(net2084), .DIN2(net2129), .DIN3(Imem2Ictrl_response[3]), 
+        .DIN4(net2086), .Q(net2091) );
+  ib1s1 U235 ( .DIN(reject_I_req), .Q(net2086) );
+  nnd4s1 U236 ( .DIN1(net2084), .DIN2(net2129), .DIN3(Imem2Ictrl_response[0]), 
+        .DIN4(net2086), .Q(net2097) );
+  nnd4s1 U237 ( .DIN1(net2084), .DIN2(net2129), .DIN3(Imem2Ictrl_response[2]), 
+        .DIN4(net2086), .Q(net2094) );
+  nnd4s1 U238 ( .DIN1(net2084), .DIN2(net2129), .DIN3(Imem2Ictrl_response[1]), 
+        .DIN4(net2086), .Q(net2083) );
+  oai21s2 U239 ( .DIN1(net2087), .DIN2(net2088), .DIN3(net3095), .Q(net2090)
+         );
+  i1s3 U240 ( .DIN(net2084), .Q(net2088) );
+  oai21s2 U241 ( .DIN1(net2087), .DIN2(net2088), .DIN3(net3093), .Q(net2082)
+         );
+  oai21s2 U242 ( .DIN1(net2087), .DIN2(net2088), .DIN3(n55), .Q(net2093) );
+  aoi23s1 U243 ( .DIN3(net3140), .DIN4(net3419), .DIN5(net3401), .DIN1(net2088), .DIN2(net3144), .Q(net2096) );
+  i1s3 U244 ( .DIN(net3259), .Q(net2087) );
+  nnd3s2 U245 ( .DIN1(net3419), .DIN2(net3141), .DIN3(net3250), .Q(net3259) );
+  and2s1 U246 ( .DIN1(net2111), .DIN2(net3247), .Q(net3250) );
+  and2s1 U247 ( .DIN1(net2111), .DIN2(net3247), .Q(net3276) );
+  nnd4s1 U248 ( .DIN1(net3230), .DIN2(n56), .DIN3(net3248), .DIN4(n227), .Q(
+        net3141) );
+  i1s3 U249 ( .DIN(n225), .Q(n227) );
+  nnd4s1 U250 ( .DIN1(net3230), .DIN2(n56), .DIN3(net3248), .DIN4(n227), .Q(
+        net3401) );
+  nnd4s1 U251 ( .DIN1(net3230), .DIN2(n56), .DIN3(net3232), .DIN4(n227), .Q(
+        net3277) );
+  nnd3s3 U252 ( .DIN1(net3227), .DIN2(n226), .DIN3(net3229), .Q(n225) );
+  ib1s1 U253 ( .DIN(Icache2Ictrl_valid), .Q(n226) );
+  ib1s1 U254 ( .DIN(n226), .Q(net3047) );
+  nnd2s1 U255 ( .DIN1(n226), .DIN2(net3254), .Q(net3151) );
+  and4s1 U256 ( .DIN1(net3407), .DIN2(net3227), .DIN3(n56), .DIN4(net2112), 
+        .Q(net3184) );
+  or5s3 U257 ( .DIN1(net3166), .DIN2(net3167), .DIN3(net3168), .DIN4(net3169), 
+        .DIN5(net3170), .Q(net2084) );
+  nnd2s1 U258 ( .DIN1(net2080), .DIN2(net2081), .Q(net3253) );
+  mxi21s3 U259 ( .DIN1(net3237), .DIN2(net3235), .SIN(net3095), .Q(net3230) );
+  nnd2s1 U260 ( .DIN1(net2079), .DIN2(net2078), .Q(net3252) );
+  nnd2s2 U261 ( .DIN1(net2101), .DIN2(net2111), .Q(net3251) );
+  xor2s2 U262 ( .DIN1(net348), .DIN2(\last_addr[idx][1] ), .Q(net2101) );
+  i1s3 U263 ( .DIN(proc2Ictrl_addr[4]), .Q(net348) );
+  nnd2s1 U264 ( .DIN1(net2093), .DIN2(net2094), .Q(n44) );
+  oai22s3 U265 ( .DIN1(Imem2Ictrl_tag[3]), .DIN2(n25), .DIN3(n26), .DIN4(
+        Imem2Ictrl_tag[3]), .Q(net3238) );
+  xor2s2 U266 ( .DIN1(n25), .DIN2(Imem2Ictrl_tag[2]), .Q(net3437) );
+  nor5s3 U267 ( .DIN1(net3403), .DIN2(net3221), .DIN3(net3224), .DIN4(net3223), 
+        .DIN5(net3222), .Q(net3419) );
+  nnd3s2 U268 ( .DIN1(net3419), .DIN2(net3277), .DIN3(net3276), .Q(net2129) );
+  xor2s2 U269 ( .DIN1(proc2Ictrl_addr[14]), .DIN2(net3436), .Q(net3399) );
+  nnd3s2 U270 ( .DIN1(net2075), .DIN2(net2074), .DIN3(net2112), .Q(net3223) );
+  nnd3s3 U271 ( .DIN1(net3227), .DIN2(net3229), .DIN3(net2073), .Q(net3224) );
+  nnd2s2 U272 ( .DIN1(net2081), .DIN2(net2078), .Q(net3221) );
+  xnr2s2 U273 ( .DIN1(net349), .DIN2(\last_addr[idx][2] ), .Q(net3403) );
+  nor2s1 U274 ( .DIN1(net3403), .DIN2(net3240), .Q(net3241) );
+  i1s3 U275 ( .DIN(proc2Ictrl_addr[5]), .Q(net349) );
+  xor2s2 U276 ( .DIN1(net349), .DIN2(\last_addr[idx][2] ), .Q(net2080) );
+  xor2s2 U277 ( .DIN1(net348), .DIN2(\last_addr[idx][1] ), .Q(net3455) );
+  and4s3 U278 ( .DIN1(net2079), .DIN2(net3455), .DIN3(net2111), .DIN4(net2132), 
+        .Q(net3239) );
+  nnd3s2 U279 ( .DIN1(net3455), .DIN2(net2132), .DIN3(net2103), .Q(net2072) );
+  ib1s1 U280 ( .DIN(net2137), .Q(net2132) );
+  xor2s2 U281 ( .DIN1(net2489), .DIN2(proc2Ictrl_addr[14]), .Q(net2079) );
+  hi1s1 U282 ( .DIN(proc2Ictrl_addr[14]), .Q(net358) );
+  xor2s2 U283 ( .DIN1(proc2Ictrl_addr[15]), .DIN2(net3413), .Q(net2075) );
+  nnd4s1 U284 ( .DIN1(net2073), .DIN2(net2112), .DIN3(net2075), .DIN4(net2074), 
+        .Q(net3169) );
+  nnd4s1 U285 ( .DIN1(net2073), .DIN2(net2074), .DIN3(net2075), .DIN4(net2076), 
+        .Q(net2070) );
+  nnd3s2 U286 ( .DIN1(net2075), .DIN2(net2074), .DIN3(net2112), .Q(net3242) );
+  xor2s3 U287 ( .DIN1(net355), .DIN2(\last_addr[tag][4] ), .Q(net2074) );
+  hi1s1 U288 ( .DIN(proc2Ictrl_addr[8]), .Q(net352) );
+  nnd2s1 U289 ( .DIN1(net2082), .DIN2(net2083), .Q(n43) );
+  xnr2s2 U290 ( .DIN1(net3093), .DIN2(Imem2Ictrl_tag[1]), .Q(net2103) );
+  xor2s2 U291 ( .DIN1(proc2Ictrl_addr[9]), .DIN2(net3416), .Q(net2111) );
+  nnd2s2 U292 ( .DIN1(miss_outstanding), .DIN2(net2100), .Q(net2115) );
+  nor2s1 U293 ( .DIN1(n27), .DIN2(miss_outstanding), .Q(net3249) );
+  i1s1 U294 ( .DIN(Imem2Ictrl_tag[3]), .Q(net3235) );
+  ib1s1 U295 ( .DIN(Imem2Ictrl_tag[3]), .Q(net3439) );
+  or2s1 U296 ( .DIN1(reject_I_req), .DIN2(n235), .Q(n228) );
+  nnd2s2 U297 ( .DIN1(n228), .DIN2(net442), .Q(net2113) );
+  i1s3 U298 ( .DIN(net2072), .Q(net3168) );
+  xor2s2 U299 ( .DIN1(proc2Ictrl_addr[12]), .DIN2(n229), .Q(net2073) );
+  i1s1 U300 ( .DIN(net3230), .Q(net3220) );
+  xor2s3 U301 ( .DIN1(net2461), .DIN2(proc2Ictrl_addr[10]), .Q(net3229) );
+  ib1s1 U302 ( .DIN(proc2Ictrl_addr[10]), .Q(net354) );
+  i1s2 U303 ( .DIN(net2115), .Q(net442) );
+  hi1s1 U304 ( .DIN(net3437), .Q(net3428) );
+  ib1s1 U305 ( .DIN(net3227), .Q(net3167) );
+  i1s3 U306 ( .DIN(proc2Ictrl_addr[11]), .Q(net355) );
+  nnd2s1 U307 ( .DIN1(net2081), .DIN2(net2078), .Q(net3240) );
+  xor2s1 U308 ( .DIN1(net2461), .DIN2(proc2Ictrl_addr[10]), .Q(net3407) );
+  xor2s3 U309 ( .DIN1(net350), .DIN2(\last_addr[idx][3] ), .Q(net2081) );
+  and4s3 U310 ( .DIN1(n231), .DIN2(net3168), .DIN3(n232), .DIN4(net3184), .Q(
+        Ictrl2Icache_mem_write_en) );
+  aoi21s3 U311 ( .DIN1(net3439), .DIN2(net3144), .DIN3(net3238), .Q(net3237)
+         );
+  nnd3s2 U312 ( .DIN1(net3227), .DIN2(net3407), .DIN3(net2073), .Q(n233) );
+  and2s2 U313 ( .DIN1(net3437), .DIN2(net2112), .Q(net3248) );
+  nnd3s2 U314 ( .DIN1(net3241), .DIN2(net3239), .DIN3(n234), .Q(net3254) );
+  xor2s2 U315 ( .DIN1(net2664), .DIN2(net2209), .Q(net3227) );
+  nor2s1 U316 ( .DIN1(net3428), .DIN2(net3220), .Q(net2076) );
+  nnd2s1 U317 ( .DIN1(net3151), .DIN2(net2113), .Q(unanswered_miss) );
+  and2s1 U318 ( .DIN1(net3249), .DIN2(net2111), .Q(net3140) );
+  ib1s1 U319 ( .DIN(net2111), .Q(net3213) );
+  ib1s1 U320 ( .DIN(net3407), .Q(net3166) );
+  i1s2 U321 ( .DIN(net3254), .Q(net2100) );
+  nor2s2 U322 ( .DIN1(net3242), .DIN2(n233), .Q(n234) );
+  nor2s2 U323 ( .DIN1(net3213), .DIN2(net2070), .Q(n232) );
+  i1s3 U324 ( .DIN(proc2Ictrl_addr[6]), .Q(net350) );
+  ib1s1 U325 ( .DIN(net358), .Q(net2149) );
+  ib1s1 U326 ( .DIN(net2190), .Q(net2191) );
+  ib1s1 U327 ( .DIN(net349), .Q(net2187) );
+  ib1s1 U328 ( .DIN(net2174), .Q(net2175) );
+  ib1s1 U329 ( .DIN(net2170), .Q(net2171) );
+  ib1s1 U330 ( .DIN(net2182), .Q(net2183) );
+  ib1s1 U331 ( .DIN(net354), .Q(net2195) );
+  ib1s1 U332 ( .DIN(net355), .Q(net2156) );
+  ib1s1 U333 ( .DIN(net2178), .Q(net2179) );
+  ib1s1 U334 ( .DIN(net2159), .Q(net2160) );
+  ib1s1 U335 ( .DIN(net2166), .Q(net2167) );
+  ib1s1 U336 ( .DIN(reset), .Q(n236) );
+  nb1s2 U337 ( .DIN(net2156), .Q(net2254) );
+  nb1s2 U338 ( .DIN(net2160), .Q(net2260) );
+  nb1s2 U339 ( .DIN(net2167), .Q(net2266) );
+  nb1s2 U340 ( .DIN(net2171), .Q(net2272) );
+  nb1s2 U341 ( .DIN(net2179), .Q(net2284) );
+  nb1s2 U342 ( .DIN(net2183), .Q(net2290) );
+  nb1s2 U343 ( .DIN(net2187), .Q(net2296) );
+  nb1s2 U344 ( .DIN(net2195), .Q(net2308) );
+  i1s1 U345 ( .DIN(net2209), .Q(net2210) );
+  hi1s1 U346 ( .DIN(net2210), .Q(net2201) );
+  hi1s1 U347 ( .DIN(net352), .Q(net2198) );
+  hi1s1 U348 ( .DIN(net3443), .Q(net2190) );
+  hi1s1 U349 ( .DIN(proc2Ictrl_addr[9]), .Q(net2182) );
+  hi1s1 U350 ( .DIN(proc2Ictrl_addr[12]), .Q(net2178) );
+  hi1s1 U351 ( .DIN(\current_addr[idx][3] ), .Q(net2174) );
+  hi1s1 U352 ( .DIN(proc2Ictrl_addr[7]), .Q(net2170) );
+  hi1s1 U353 ( .DIN(proc2Ictrl_addr[15]), .Q(net2166) );
+  hi1s1 U354 ( .DIN(net2210), .Q(net2163) );
+  hi1s1 U355 ( .DIN(proc2Ictrl_addr[13]), .Q(net2159) );
+  hi1s1 U356 ( .DIN(net352), .Q(net2152) );
+  nnd2s1 U357 ( .DIN1(net2096), .DIN2(net2097), .Q(n46) );
+  nor4s1 U358 ( .DIN1(Imem2Ictrl_response[3]), .DIN2(Imem2Ictrl_response[2]), 
+        .DIN3(Imem2Ictrl_response[1]), .DIN4(Imem2Ictrl_response[0]), .Q(n235)
+         );
+  nnd4s1 U359 ( .DIN1(net2078), .DIN2(net2079), .DIN3(net2080), .DIN4(net2081), 
+        .Q(net2069) );
+endmodule
+

@@ -1,0 +1,237 @@
+/////////////////////////////////////////////////////////////
+// Created by: Synopsys DC Expert(TM) in wire load mode
+// Version   : O-2018.06
+// Date      : Tue Dec  8 22:32:39 2020
+/////////////////////////////////////////////////////////////
+
+
+module rot_pselect_RS ( clock, reset, req, en, rotator, gnt );
+  input [31:0] req;
+  input [1:0] rotator;
+  output [31:0] gnt;
+  input clock, reset, en;
+  wire   n181, N5, N6, N7, N8, n1, n2, n4, n5, n6, n7, n8, n9, n14, n17, n19,
+         n22, n25, n27, n28, n29, n30, n32, n34, n36, n37, n40, n42, n44, n46,
+         n47, n49, n51, n52, n54, n56, n57, n58, n59, n60, n61, n64, n66, n67,
+         n69, n71, n72, n74, n76, n78, n79, n81, n83, n84, n85, n86, n87, n88,
+         n90, n93, n95, n97, n99, n100, n102, n104, n105, n106, n108, n110,
+         n111, n112, n113, n115, n121, n122, n124, n125, n127, n128, n129,
+         n130, n131, n132, n133, n134, n135, n136, n137, n138, n139, n140,
+         n141, n142, n143, n144, n145, n146, n147, n148, n149, n150, n151,
+         n152, n153, n154, n155, n156, n157, n158, n159, n160, n161, n162,
+         n163, n164, n165, n166, n167, n168, n169, n170, n171, n172, n173,
+         n174, n175, n176, n177, n178, n179, n180;
+  wire   [4:0] sel;
+  wire   [4:2] \r116/carry ;
+
+  nnd2s2 U26 ( .DIN1(n136), .DIN2(n22), .Q(n19) );
+  nnd2s2 U53 ( .DIN1(n51), .DIN2(n56), .Q(n54) );
+  nnd2s2 U64 ( .DIN1(n66), .DIN2(n71), .Q(n69) );
+  nnd2s2 U74 ( .DIN1(n78), .DIN2(n83), .Q(n81) );
+  nnd2s2 U77 ( .DIN1(n58), .DIN2(n84), .Q(n72) );
+  nnd2s2 U83 ( .DIN1(n121), .DIN2(n93), .Q(n90) );
+  nnd2s2 U87 ( .DIN1(n121), .DIN2(n97), .Q(n95) );
+  nnd2s2 U100 ( .DIN1(n108), .DIN2(n29), .Q(n88) );
+  or4s3 U116 ( .DIN1(n57), .DIN2(n46), .DIN3(n61), .DIN4(n60), .Q(n112) );
+  nnd2s2 U137 ( .DIN1(n99), .DIN2(n106), .Q(n87) );
+  dffcs1 \sel_reg[4]  ( .CLRB(n173), .DIN(n133), .CLK(clock), .Q(sel[4]) );
+  dffcs1 jump_toggle_reg ( .CLRB(n115), .DIN(n133), .CLK(clock), .QN(n113) );
+  dffcs1 \sel_reg[3]  ( .CLRB(n172), .DIN(n133), .CLK(clock), .Q(sel[3]), .QN(
+        n180) );
+  dffcs1 \sel_reg[2]  ( .CLRB(n171), .DIN(n133), .CLK(clock), .Q(sel[2]), .QN(
+        n179) );
+  dffscs2 \sel_reg[0]  ( .DIN(1'b0), .SETB(n1), .CLRB(n133), .CLK(clock), .Q(
+        sel[0]), .QN(n177) );
+  dffcs1 \sel_reg[1]  ( .CLRB(n170), .DIN(n133), .CLK(clock), .Q(sel[1]), .QN(
+        n178) );
+  hi1s1 U154 ( .DIN(reset), .Q(n133) );
+  nnd2s2 U155 ( .DIN1(n36), .DIN2(n37), .Q(n34) );
+  aoi211s2 U156 ( .DIN1(req[28]), .DIN2(n122), .DIN3(n140), .DIN4(n42), .Q(
+        gnt[29]) );
+  aoi211s2 U157 ( .DIN1(req[8]), .DIN2(n122), .DIN3(n160), .DIN4(n14), .Q(
+        gnt[9]) );
+  nnd2s1 U158 ( .DIN1(n134), .DIN2(n17), .Q(n14) );
+  aoi211s2 U159 ( .DIN1(req[6]), .DIN2(n122), .DIN3(n162), .DIN4(n19), .Q(
+        gnt[7]) );
+  aoi211s2 U160 ( .DIN1(req[26]), .DIN2(n122), .DIN3(n142), .DIN4(n49), .Q(
+        gnt[27]) );
+  nnd2s1 U161 ( .DIN1(n51), .DIN2(n52), .Q(n49) );
+  aoi211s3 U162 ( .DIN1(req[18]), .DIN2(n122), .DIN3(n150), .DIN4(n76), .Q(
+        gnt[19]) );
+  nnd2s1 U163 ( .DIN1(n78), .DIN2(n79), .Q(n76) );
+  and4s1 U164 ( .DIN1(n157), .DIN2(n156), .DIN3(n155), .DIN4(n154), .Q(n106)
+         );
+  ib1s1 U165 ( .DIN(n124), .Q(n125) );
+  aoi21s2 U166 ( .DIN1(n60), .DIN2(sel[2]), .DIN3(n72), .Q(n78) );
+  ib1s1 U167 ( .DIN(req[20]), .Q(n149) );
+  ib1s1 U168 ( .DIN(req[23]), .Q(n146) );
+  aoi211s2 U169 ( .DIN1(req[0]), .DIN2(n122), .DIN3(n168), .DIN4(n74), .Q(
+        gnt[1]) );
+  aoi211s2 U170 ( .DIN1(req[4]), .DIN2(n122), .DIN3(n164), .DIN4(n25), .Q(
+        gnt[5]) );
+  aoi211s2 U171 ( .DIN1(req[22]), .DIN2(n122), .DIN3(n146), .DIN4(n64), .Q(
+        gnt[23]) );
+  and2s2 U172 ( .DIN1(n130), .DIN2(n100), .Q(n121) );
+  ib1s1 U173 ( .DIN(sel[0]), .Q(n122) );
+  aoi21s3 U175 ( .DIN1(n85), .DIN2(n86), .DIN3(n175), .Q(n58) );
+  nnd2s3 U176 ( .DIN1(sel[4]), .DIN2(n112), .Q(n85) );
+  or2s2 U177 ( .DIN1(n87), .DIN2(n88), .Q(n86) );
+  nnd2s1 U178 ( .DIN1(n66), .DIN2(n67), .Q(n64) );
+  aoi211s2 U179 ( .DIN1(req[5]), .DIN2(sel[0]), .DIN3(n25), .DIN4(n165), .Q(
+        gnt[4]) );
+  aoi211s2 U180 ( .DIN1(n180), .DIN2(n88), .DIN3(n137), .DIN4(n175), .Q(n100)
+         );
+  ib1s2 U181 ( .DIN(n85), .Q(n137) );
+  nnd2s2 U182 ( .DIN1(n149), .DIN2(n148), .Q(n124) );
+  nnd3s2 U183 ( .DIN1(n147), .DIN2(n125), .DIN3(n146), .Q(n60) );
+  i1s3 U184 ( .DIN(req[21]), .Q(n148) );
+  nb1s2 U185 ( .DIN(n181), .Q(gnt[11]) );
+  aoi211s1 U186 ( .DIN1(req[10]), .DIN2(n122), .DIN3(n158), .DIN4(n102), .Q(
+        n181) );
+  nnd2s3 U187 ( .DIN1(n132), .DIN2(n150), .Q(n61) );
+  i1s3 U188 ( .DIN(n131), .Q(n132) );
+  nnd2s1 U189 ( .DIN1(n135), .DIN2(n110), .Q(n74) );
+  nnd2s1 U190 ( .DIN1(n134), .DIN2(n104), .Q(n102) );
+  nor2s1 U191 ( .DIN1(n127), .DIN2(n47), .Q(n36) );
+  and2s1 U192 ( .DIN1(n179), .DIN2(n46), .Q(n127) );
+  nnd2s2 U193 ( .DIN1(n58), .DIN2(n59), .Q(n47) );
+  nnd2s1 U194 ( .DIN1(n36), .DIN2(n44), .Q(n42) );
+  oai21s2 U195 ( .DIN1(n106), .DIN2(n179), .DIN3(n100), .Q(n105) );
+  aoi211s1 U196 ( .DIN1(req[9]), .DIN2(sel[0]), .DIN3(n14), .DIN4(n161), .Q(
+        gnt[8]) );
+  nnd4s1 U197 ( .DIN1(n145), .DIN2(n144), .DIN3(n143), .DIN4(n142), .Q(n46) );
+  nnd4s1 U198 ( .DIN1(n141), .DIN2(n140), .DIN3(n139), .DIN4(n138), .Q(n57) );
+  aoi211s1 U199 ( .DIN1(req[11]), .DIN2(sel[0]), .DIN3(n102), .DIN4(n159), .Q(
+        gnt[10]) );
+  and2s1 U200 ( .DIN1(n57), .DIN2(sel[2]), .Q(n128) );
+  nor2s1 U201 ( .DIN1(n128), .DIN2(n47), .Q(n51) );
+  nor2s1 U202 ( .DIN1(n129), .DIN2(n72), .Q(n66) );
+  and2s1 U203 ( .DIN1(n179), .DIN2(n61), .Q(n129) );
+  and4s1 U204 ( .DIN1(n159), .DIN2(n158), .DIN3(n161), .DIN4(n160), .Q(n99) );
+  i1s3 U205 ( .DIN(req[16]), .Q(n153) );
+  i1s3 U206 ( .DIN(req[18]), .Q(n151) );
+  or2s1 U207 ( .DIN1(sel[2]), .DIN2(n99), .Q(n130) );
+  nnd2s1 U208 ( .DIN1(n136), .DIN2(n27), .Q(n25) );
+  ib1s1 U209 ( .DIN(req[19]), .Q(n150) );
+  nnd3s2 U210 ( .DIN1(n152), .DIN2(n153), .DIN3(n151), .Q(n131) );
+  oai21s1 U211 ( .DIN1(n60), .DIN2(n61), .DIN3(n180), .Q(n59) );
+  oai21s1 U212 ( .DIN1(n57), .DIN2(n46), .DIN3(sel[3]), .Q(n84) );
+  oai21s1 U213 ( .DIN1(req[30]), .DIN2(req[31]), .DIN3(sel[1]), .Q(n44) );
+  oai21s1 U214 ( .DIN1(req[22]), .DIN2(req[23]), .DIN3(sel[1]), .Q(n71) );
+  oai21s1 U215 ( .DIN1(req[20]), .DIN2(req[21]), .DIN3(n178), .Q(n67) );
+  oai21s1 U216 ( .DIN1(req[8]), .DIN2(req[9]), .DIN3(n178), .Q(n104) );
+  oai21s1 U217 ( .DIN1(req[12]), .DIN2(req[13]), .DIN3(n178), .Q(n93) );
+  oai21s1 U218 ( .DIN1(req[16]), .DIN2(req[17]), .DIN3(n178), .Q(n79) );
+  oai21s1 U219 ( .DIN1(req[24]), .DIN2(req[25]), .DIN3(n178), .Q(n52) );
+  oai21s1 U220 ( .DIN1(req[2]), .DIN2(req[3]), .DIN3(sel[1]), .Q(n110) );
+  oai21s1 U221 ( .DIN1(req[6]), .DIN2(req[7]), .DIN3(sel[1]), .Q(n27) );
+  oai21s1 U222 ( .DIN1(req[14]), .DIN2(req[15]), .DIN3(sel[1]), .Q(n97) );
+  oai21s1 U223 ( .DIN1(req[18]), .DIN2(req[19]), .DIN3(sel[1]), .Q(n83) );
+  oai21s1 U224 ( .DIN1(req[26]), .DIN2(req[27]), .DIN3(sel[1]), .Q(n56) );
+  aoi211s3 U225 ( .DIN1(req[2]), .DIN2(n122), .DIN3(n166), .DIN4(n32), .Q(
+        gnt[3]) );
+  nnd2s1 U226 ( .DIN1(n135), .DIN2(n40), .Q(n32) );
+  ib1s1 U227 ( .DIN(n8), .Q(n174) );
+  ib1s1 U228 ( .DIN(n111), .Q(n135) );
+  oai21s2 U229 ( .DIN1(n108), .DIN2(n179), .DIN3(n30), .Q(n111) );
+  ib1s1 U230 ( .DIN(n105), .Q(n134) );
+  and4s1 U231 ( .DIN1(n165), .DIN2(n164), .DIN3(n163), .DIN4(n162), .Q(n108)
+         );
+  and4s1 U232 ( .DIN1(n169), .DIN2(n168), .DIN3(n167), .DIN4(n166), .Q(n29) );
+  aoi211s1 U233 ( .DIN1(req[1]), .DIN2(sel[0]), .DIN3(n74), .DIN4(n169), .Q(
+        gnt[0]) );
+  aoi211s1 U234 ( .DIN1(req[3]), .DIN2(sel[0]), .DIN3(n32), .DIN4(n167), .Q(
+        gnt[2]) );
+  aoi211s1 U235 ( .DIN1(req[7]), .DIN2(sel[0]), .DIN3(n19), .DIN4(n163), .Q(
+        gnt[6]) );
+  aoi211s1 U236 ( .DIN1(req[13]), .DIN2(sel[0]), .DIN3(n95), .DIN4(n157), .Q(
+        gnt[12]) );
+  aoi211s1 U237 ( .DIN1(req[15]), .DIN2(sel[0]), .DIN3(n90), .DIN4(n155), .Q(
+        gnt[14]) );
+  aoi211s1 U238 ( .DIN1(req[17]), .DIN2(sel[0]), .DIN3(n81), .DIN4(n153), .Q(
+        gnt[16]) );
+  aoi211s1 U239 ( .DIN1(req[19]), .DIN2(sel[0]), .DIN3(n76), .DIN4(n151), .Q(
+        gnt[18]) );
+  aoi211s1 U240 ( .DIN1(req[21]), .DIN2(sel[0]), .DIN3(n69), .DIN4(n149), .Q(
+        gnt[20]) );
+  aoi211s1 U241 ( .DIN1(req[23]), .DIN2(sel[0]), .DIN3(n64), .DIN4(n147), .Q(
+        gnt[22]) );
+  aoi211s1 U242 ( .DIN1(req[25]), .DIN2(sel[0]), .DIN3(n54), .DIN4(n145), .Q(
+        gnt[24]) );
+  aoi211s1 U243 ( .DIN1(req[27]), .DIN2(sel[0]), .DIN3(n49), .DIN4(n143), .Q(
+        gnt[26]) );
+  aoi211s1 U244 ( .DIN1(req[29]), .DIN2(sel[0]), .DIN3(n42), .DIN4(n141), .Q(
+        gnt[28]) );
+  aoi211s1 U245 ( .DIN1(req[31]), .DIN2(sel[0]), .DIN3(n34), .DIN4(n139), .Q(
+        gnt[30]) );
+  aoi211s1 U246 ( .DIN1(req[12]), .DIN2(n122), .DIN3(n156), .DIN4(n95), .Q(
+        gnt[13]) );
+  aoi211s1 U247 ( .DIN1(req[14]), .DIN2(n122), .DIN3(n154), .DIN4(n90), .Q(
+        gnt[15]) );
+  aoi211s1 U248 ( .DIN1(req[16]), .DIN2(n122), .DIN3(n152), .DIN4(n81), .Q(
+        gnt[17]) );
+  aoi211s1 U249 ( .DIN1(req[20]), .DIN2(n122), .DIN3(n148), .DIN4(n69), .Q(
+        gnt[21]) );
+  aoi211s1 U250 ( .DIN1(req[24]), .DIN2(n122), .DIN3(n144), .DIN4(n54), .Q(
+        gnt[25]) );
+  aoi211s1 U251 ( .DIN1(req[30]), .DIN2(n122), .DIN3(n138), .DIN4(n34), .Q(
+        gnt[31]) );
+  aoi211s1 U252 ( .DIN1(n87), .DIN2(sel[3]), .DIN3(n137), .DIN4(n175), .Q(n30)
+         );
+  aoi13s2 U253 ( .DIN2(rotator[0]), .DIN3(n176), .DIN4(n113), .DIN1(n175), .Q(
+        n8) );
+  and2s1 U254 ( .DIN1(n8), .DIN2(n9), .Q(n2) );
+  xnr2s1 U255 ( .DIN1(n176), .DIN2(rotator[0]), .Q(n9) );
+  ib1s1 U256 ( .DIN(en), .Q(n175) );
+  oai21s2 U257 ( .DIN1(req[28]), .DIN2(req[29]), .DIN3(n178), .Q(n37) );
+  oai21s2 U258 ( .DIN1(req[10]), .DIN2(req[11]), .DIN3(sel[1]), .Q(n17) );
+  oai21s2 U259 ( .DIN1(req[0]), .DIN2(req[1]), .DIN3(n178), .Q(n40) );
+  oai21s2 U260 ( .DIN1(req[4]), .DIN2(req[5]), .DIN3(n178), .Q(n22) );
+  ib1s1 U261 ( .DIN(req[27]), .Q(n142) );
+  ib1s1 U262 ( .DIN(req[31]), .Q(n138) );
+  ib1s1 U263 ( .DIN(req[26]), .Q(n143) );
+  ib1s1 U264 ( .DIN(req[30]), .Q(n139) );
+  ib1s1 U265 ( .DIN(req[22]), .Q(n147) );
+  ib1s1 U266 ( .DIN(req[25]), .Q(n144) );
+  ib1s1 U267 ( .DIN(req[29]), .Q(n140) );
+  ib1s1 U268 ( .DIN(req[17]), .Q(n152) );
+  ib1s1 U269 ( .DIN(req[24]), .Q(n145) );
+  ib1s1 U270 ( .DIN(req[28]), .Q(n141) );
+  ib1s1 U271 ( .DIN(req[13]), .Q(n156) );
+  ib1s1 U272 ( .DIN(req[11]), .Q(n158) );
+  ib1s1 U273 ( .DIN(req[1]), .Q(n168) );
+  ib1s1 U274 ( .DIN(req[15]), .Q(n154) );
+  ib1s1 U275 ( .DIN(req[9]), .Q(n160) );
+  ib1s1 U276 ( .DIN(req[3]), .Q(n166) );
+  ib1s1 U277 ( .DIN(req[7]), .Q(n162) );
+  ib1s1 U278 ( .DIN(req[12]), .Q(n157) );
+  ib1s1 U279 ( .DIN(req[10]), .Q(n159) );
+  ib1s1 U280 ( .DIN(req[0]), .Q(n169) );
+  ib1s1 U281 ( .DIN(req[14]), .Q(n155) );
+  ib1s1 U282 ( .DIN(req[8]), .Q(n161) );
+  ib1s1 U283 ( .DIN(req[2]), .Q(n167) );
+  ib1s1 U284 ( .DIN(req[6]), .Q(n163) );
+  ib1s1 U285 ( .DIN(req[4]), .Q(n165) );
+  ib1s1 U286 ( .DIN(req[5]), .Q(n164) );
+  ib1s1 U287 ( .DIN(rotator[1]), .Q(n176) );
+  ib1s1 U288 ( .DIN(n28), .Q(n136) );
+  oai21s2 U289 ( .DIN1(sel[2]), .DIN2(n29), .DIN3(n30), .Q(n28) );
+  aoi22s1 U290 ( .DIN1(n177), .DIN2(n2), .DIN3(sel[0]), .DIN4(n174), .Q(n1) );
+  ib1s1 U291 ( .DIN(n7), .Q(n173) );
+  aoi22s2 U292 ( .DIN1(n174), .DIN2(sel[4]), .DIN3(n2), .DIN4(N8), .Q(n7) );
+  ib1s1 U293 ( .DIN(n6), .Q(n172) );
+  aoi22s2 U294 ( .DIN1(n174), .DIN2(sel[3]), .DIN3(n2), .DIN4(N7), .Q(n6) );
+  ib1s1 U295 ( .DIN(n5), .Q(n171) );
+  aoi22s2 U296 ( .DIN1(n174), .DIN2(sel[2]), .DIN3(n2), .DIN4(N6), .Q(n5) );
+  ib1s1 U297 ( .DIN(n4), .Q(n170) );
+  aoi22s2 U298 ( .DIN1(n174), .DIN2(sel[1]), .DIN3(n2), .DIN4(N5), .Q(n4) );
+  hadd1s1 U299 ( .AIN(sel[1]), .BIN(sel[0]), .OUTC(\r116/carry [2]), .OUTS(N5)
+         );
+  hadd1s1 U300 ( .AIN(sel[2]), .BIN(\r116/carry [2]), .OUTC(\r116/carry [3]), 
+        .OUTS(N6) );
+  hadd1s1 U301 ( .AIN(sel[3]), .BIN(\r116/carry [3]), .OUTC(\r116/carry [4]), 
+        .OUTS(N7) );
+  xnr2s1 U302 ( .DIN1(n113), .DIN2(en), .Q(n115) );
+  xor2s1 U303 ( .DIN1(\r116/carry [4]), .DIN2(sel[4]), .Q(N8) );
+endmodule
+

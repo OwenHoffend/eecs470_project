@@ -1,0 +1,476 @@
+/////////////////////////////////////////////////////////////
+// Created by: Synopsys DC Expert(TM) in wire load mode
+// Version   : O-2018.06
+// Date      : Tue Dec  8 21:32:20 2020
+/////////////////////////////////////////////////////////////
+
+
+module PHT ( rd_idx, wb_idx, wb_taken, wb_en, clock, reset, taken );
+  input [3:0] rd_idx;
+  input [3:0] wb_idx;
+  input wb_taken, wb_en, clock, reset;
+  output taken;
+  wire   N29, N30, N31, N32, N33, N34, N35, N36, \next_saturation[15][1] ,
+         \next_saturation[15][0] , \next_saturation[14][1] ,
+         \next_saturation[14][0] , \next_saturation[13][1] ,
+         \next_saturation[13][0] , \next_saturation[12][1] ,
+         \next_saturation[12][0] , \next_saturation[11][1] ,
+         \next_saturation[11][0] , \next_saturation[10][1] ,
+         \next_saturation[10][0] , \next_saturation[9][1] ,
+         \next_saturation[9][0] , \next_saturation[8][1] ,
+         \next_saturation[8][0] , \next_saturation[7][1] ,
+         \next_saturation[7][0] , \next_saturation[6][1] ,
+         \next_saturation[6][0] , \next_saturation[5][1] ,
+         \next_saturation[5][0] , \next_saturation[4][1] ,
+         \next_saturation[4][0] , \next_saturation[3][1] ,
+         \next_saturation[3][0] , \next_saturation[2][1] ,
+         \next_saturation[2][0] , \next_saturation[1][1] ,
+         \next_saturation[1][0] , \next_saturation[0][1] ,
+         \next_saturation[0][0] , \saturation[15][1] , \saturation[15][0] ,
+         \saturation[14][1] , \saturation[14][0] , \saturation[13][1] ,
+         \saturation[13][0] , \saturation[12][1] , \saturation[12][0] ,
+         \saturation[11][1] , \saturation[11][0] , \saturation[10][1] ,
+         \saturation[10][0] , \saturation[9][1] , \saturation[9][0] ,
+         \saturation[8][1] , \saturation[8][0] , \saturation[7][1] ,
+         \saturation[7][0] , \saturation[6][1] , \saturation[6][0] ,
+         \saturation[5][1] , \saturation[5][0] , \saturation[4][1] ,
+         \saturation[4][0] , \saturation[3][1] , \saturation[3][0] ,
+         \saturation[2][1] , \saturation[2][0] , \saturation[1][1] ,
+         \saturation[1][0] , \saturation[0][1] , \saturation[0][0] , N126,
+         N127, N199, n56, n58, n59, n60, n61, n62, n63, n64, n67, n69, n70,
+         n71, n72, n73, n74, n75, n76, n77, n78, n79, n80, n81, n83, n84, n85,
+         n86, n87, n88, n109, n113, n116, n119, n122, n125, n128, n131, n134,
+         n137, n140, n143, n146, n149, n152, n155, n161, n162, n163, n164,
+         n165, n166, n167, n168, n170, n172, n174, n176, n178, n180, n182,
+         n184, n186, n188, n190, n192, n194, n196, n198, n200, n201, n202,
+         n203, n204, n205, n206, n207, n208, n209, n210, n211, n212, n213,
+         n214, n215, n216, n217, n218, n219, n220, n221, n222, n223, n224,
+         n225, n226, n227, n228, n229, n230, n231, n232, n233, n234, n235,
+         n236, n237, n238, n239, n240, n241, n242, n243, n244, n245, n246,
+         n247, n248, n249, n250, n251, n252, n253, n254, n255, n256, n257,
+         n258, n259, n260, n261, n262, n263, n264, n265, n266, n267, n268,
+         n269, n270, n271, n272, n273, n274, n275, n276, n277, n278, n279,
+         n280, n281, n282, n283, n284, n285, n286, n287, n288, n289, n290,
+         n291, n292, n293, n294, n295, n296, n297, n298, n299, n300, n301,
+         n302, n303, n304, n305, n306, n307, n308, n309, n310, n311, n312,
+         n313, n314, n315, n316, n317, n318, n319, n320, n321, n322, n323,
+         n324, n325, n326, n327, n328, n329, n330, n331, n332, n333, n334,
+         n335, n336, n337, n338, n339, n340, n341, n342, n343, n344, n345,
+         n346, n347, n348, n349, n350, n351, n352, n353, n354, n355, n356,
+         n357, n358, n359, n360, n361, n362, n363, n364, n365;
+  assign N29 = wb_idx[0];
+  assign N30 = wb_idx[1];
+  assign N31 = wb_idx[2];
+  assign N32 = wb_idx[3];
+  assign N33 = rd_idx[0];
+  assign N34 = rd_idx[1];
+  assign N35 = rd_idx[2];
+  assign N36 = rd_idx[3];
+
+  dffcs1 \saturation_reg[11][1]  ( .CLRB(n192), .DIN(n365), .CLK(clock), .Q(
+        \saturation[11][1] ), .QN(n201) );
+  dffss1 \saturation_reg[15][0]  ( .DIN(reset), .SETB(n346), .CLK(clock), .Q(
+        \saturation[15][0] ), .QN(n58) );
+  dffss1 \saturation_reg[14][0]  ( .DIN(reset), .SETB(n345), .CLK(clock), .Q(
+        \saturation[14][0] ), .QN(n60) );
+  dffss1 \saturation_reg[13][0]  ( .DIN(reset), .SETB(n344), .CLK(clock), .Q(
+        \saturation[13][0] ), .QN(n62) );
+  dffss1 \saturation_reg[12][0]  ( .DIN(reset), .SETB(n343), .CLK(clock), .Q(
+        \saturation[12][0] ), .QN(n64) );
+  dffss1 \saturation_reg[9][0]  ( .DIN(reset), .SETB(n340), .CLK(clock), .Q(
+        \saturation[9][0] ), .QN(n70) );
+  dffss1 \saturation_reg[8][0]  ( .DIN(reset), .SETB(n339), .CLK(clock), .Q(
+        \saturation[8][0] ), .QN(n72) );
+  dffss1 \saturation_reg[7][0]  ( .DIN(reset), .SETB(n338), .CLK(clock), .Q(
+        \saturation[7][0] ), .QN(n74) );
+  dffss1 \saturation_reg[5][0]  ( .DIN(reset), .SETB(n336), .CLK(clock), .Q(
+        \saturation[5][0] ), .QN(n78) );
+  dffss1 \saturation_reg[4][0]  ( .DIN(reset), .SETB(n335), .CLK(clock), .Q(
+        \saturation[4][0] ), .QN(n80) );
+  dffss1 \saturation_reg[1][0]  ( .DIN(reset), .SETB(n332), .CLK(clock), .Q(
+        \saturation[1][0] ), .QN(n86) );
+  dffss1 \saturation_reg[2][0]  ( .DIN(reset), .SETB(n333), .CLK(clock), .Q(
+        \saturation[2][0] ), .QN(n84) );
+  dffss1 \saturation_reg[6][0]  ( .DIN(reset), .SETB(n337), .CLK(clock), .Q(
+        \saturation[6][0] ), .QN(n76) );
+  dffss1 \saturation_reg[0][0]  ( .DIN(reset), .SETB(n331), .CLK(clock), .Q(
+        \saturation[0][0] ), .QN(n88) );
+  dffss1 \saturation_reg[3][0]  ( .DIN(reset), .SETB(n334), .CLK(clock), .Q(
+        \saturation[3][0] ), .QN(n297) );
+  dffcs1 \saturation_reg[10][1]  ( .CLRB(n190), .DIN(n365), .CLK(clock), .Q(
+        \saturation[10][1] ), .QN(n67) );
+  dffcs1 \saturation_reg[1][1]  ( .CLRB(n172), .DIN(n365), .CLK(clock), .Q(
+        \saturation[1][1] ), .QN(n85) );
+  dffcs1 \saturation_reg[0][1]  ( .CLRB(n170), .DIN(n365), .CLK(clock), .Q(
+        \saturation[0][1] ), .QN(n87) );
+  dffcs1 \saturation_reg[5][1]  ( .CLRB(n180), .DIN(n365), .CLK(clock), .Q(
+        \saturation[5][1] ), .QN(n77) );
+  dffcs1 \saturation_reg[4][1]  ( .CLRB(n178), .DIN(n365), .CLK(clock), .Q(
+        \saturation[4][1] ), .QN(n79) );
+  dffcs1 \saturation_reg[13][1]  ( .CLRB(n196), .DIN(n365), .CLK(clock), .Q(
+        \saturation[13][1] ), .QN(n61) );
+  dffcs1 \saturation_reg[12][1]  ( .CLRB(n194), .DIN(n365), .CLK(clock), .Q(
+        \saturation[12][1] ), .QN(n63) );
+  dffcs1 \saturation_reg[3][1]  ( .CLRB(n176), .DIN(n365), .CLK(clock), .Q(
+        \saturation[3][1] ), .QN(n81) );
+  dffcs1 \saturation_reg[2][1]  ( .CLRB(n174), .DIN(n365), .CLK(clock), .Q(
+        \saturation[2][1] ), .QN(n83) );
+  dffcs1 \saturation_reg[15][1]  ( .CLRB(n200), .DIN(n365), .CLK(clock), .Q(
+        \saturation[15][1] ), .QN(n56) );
+  dffcs1 \saturation_reg[14][1]  ( .CLRB(n198), .DIN(n365), .CLK(clock), .Q(
+        \saturation[14][1] ), .QN(n59) );
+  dffcs1 \saturation_reg[7][1]  ( .CLRB(n184), .DIN(n365), .CLK(clock), .Q(
+        \saturation[7][1] ), .QN(n73) );
+  dffcs1 \saturation_reg[6][1]  ( .CLRB(n182), .DIN(n365), .CLK(clock), .Q(
+        \saturation[6][1] ), .QN(n75) );
+  dffcs1 \saturation_reg[9][1]  ( .CLRB(n188), .DIN(n365), .CLK(clock), .Q(
+        \saturation[9][1] ), .QN(n69) );
+  dffcs1 \saturation_reg[8][1]  ( .CLRB(n186), .DIN(n365), .CLK(clock), .Q(
+        \saturation[8][1] ), .QN(n71) );
+  dffss1 \saturation_reg[10][0]  ( .DIN(reset), .SETB(n341), .CLK(clock), .Q(
+        \saturation[10][0] ) );
+  dffss1 \saturation_reg[11][0]  ( .DIN(reset), .SETB(n342), .CLK(clock), .Q(
+        \saturation[11][0] ), .QN(n301) );
+  aoi21s3 U199 ( .DIN1(n258), .DIN2(n259), .DIN3(n226), .Q(n257) );
+  and2s1 U200 ( .DIN1(n168), .DIN2(wb_en), .Q(n212) );
+  and2s1 U201 ( .DIN1(n166), .DIN2(wb_en), .Q(n211) );
+  and2s1 U202 ( .DIN1(n161), .DIN2(wb_en), .Q(n214) );
+  aoi22s2 U203 ( .DIN1(\next_saturation[15][0] ), .DIN2(n227), .DIN3(
+        \next_saturation[11][0] ), .DIN4(n228), .Q(n232) );
+  and2s1 U204 ( .DIN1(n167), .DIN2(wb_en), .Q(n213) );
+  ib1s1 U205 ( .DIN(n109), .Q(n349) );
+  ib1s1 U206 ( .DIN(n149), .Q(n347) );
+  ib1s1 U207 ( .DIN(n292), .Q(n295) );
+  i1s2 U208 ( .DIN(N127), .Q(n302) );
+  ib1s1 U209 ( .DIN(n287), .Q(n202) );
+  aoi22s3 U210 ( .DIN1(\saturation[14][1] ), .DIN2(n227), .DIN3(
+        \saturation[10][1] ), .DIN4(n228), .Q(n259) );
+  and2s2 U211 ( .DIN1(n302), .DIN2(N126), .Q(n203) );
+  aoi21s3 U212 ( .DIN1(n246), .DIN2(n245), .DIN3(n226), .Q(n244) );
+  nnd2s1 U213 ( .DIN1(\next_saturation[6][0] ), .DIN2(n229), .Q(n204) );
+  nnd2s1 U214 ( .DIN1(\next_saturation[2][0] ), .DIN2(n230), .Q(n205) );
+  and2s2 U215 ( .DIN1(n204), .DIN2(n205), .Q(n224) );
+  mxi21s2 U216 ( .DIN1(n76), .DIN2(n291), .SIN(n357), .Q(
+        \next_saturation[6][0] ) );
+  aoi21s3 U217 ( .DIN1(n234), .DIN2(n235), .DIN3(n236), .Q(n220) );
+  dsmxc31s2 U218 ( .DIN1(n290), .DIN2(\saturation[10][0] ), .CLK(n152), .Q(
+        \next_saturation[10][0] ) );
+  or2s3 U219 ( .DIN1(n223), .DIN2(n222), .Q(n221) );
+  aoi21s3 U220 ( .DIN1(n225), .DIN2(n224), .DIN3(n226), .Q(n223) );
+  aoi22s2 U221 ( .DIN1(\saturation[15][1] ), .DIN2(n227), .DIN3(
+        \saturation[11][1] ), .DIN4(n228), .Q(n261) );
+  hi1s1 U222 ( .DIN(n228), .Q(n206) );
+  aoi22s2 U223 ( .DIN1(\saturation[7][1] ), .DIN2(n229), .DIN3(
+        \saturation[3][1] ), .DIN4(n230), .Q(n260) );
+  aoi21s3 U224 ( .DIN1(n261), .DIN2(n260), .DIN3(n233), .Q(n256) );
+  ib1s6 U225 ( .DIN(n269), .Q(n229) );
+  nor4s3 U226 ( .DIN1(n218), .DIN2(n217), .DIN3(n216), .DIN4(n215), .Q(n209)
+         );
+  or2s2 U227 ( .DIN1(N32), .DIN2(N31), .Q(n268) );
+  nnd2s1 U228 ( .DIN1(\next_saturation[13][0] ), .DIN2(n227), .Q(n207) );
+  nnd2s2 U229 ( .DIN1(\next_saturation[9][0] ), .DIN2(n289), .Q(n208) );
+  and2s2 U230 ( .DIN1(n207), .DIN2(n208), .Q(n238) );
+  aoi21s3 U231 ( .DIN1(n237), .DIN2(n238), .DIN3(n239), .Q(n219) );
+  aoi21s3 U232 ( .DIN1(n231), .DIN2(n232), .DIN3(n233), .Q(n222) );
+  aoi22s2 U233 ( .DIN1(\saturation[14][0] ), .DIN2(n227), .DIN3(
+        \saturation[10][0] ), .DIN4(n228), .Q(n246) );
+  aoi21s2 U234 ( .DIN1(n277), .DIN2(n278), .DIN3(n287), .Q(n216) );
+  ib1s1 U235 ( .DIN(n137), .Q(n351) );
+  nor3s3 U236 ( .DIN1(n219), .DIN2(n220), .DIN3(n221), .Q(n210) );
+  i1s3 U237 ( .DIN(N32), .Q(n355) );
+  or2s2 U238 ( .DIN1(n257), .DIN2(n256), .Q(n255) );
+  or3s3 U239 ( .DIN1(n253), .DIN2(n254), .DIN3(n255), .Q(N126) );
+  i1s1 U240 ( .DIN(n226), .Q(n274) );
+  ib1s1 U241 ( .DIN(n131), .Q(n361) );
+  ib1s1 U242 ( .DIN(n128), .Q(n360) );
+  ib1s1 U243 ( .DIN(n155), .Q(n363) );
+  ib1s1 U244 ( .DIN(n134), .Q(n362) );
+  ib1s1 U245 ( .DIN(n125), .Q(n359) );
+  ib1s1 U246 ( .DIN(n122), .Q(n358) );
+  ib1s1 U247 ( .DIN(n146), .Q(n354) );
+  ib1s1 U248 ( .DIN(n143), .Q(n353) );
+  ib1s1 U249 ( .DIN(n113), .Q(n350) );
+  ib1s1 U250 ( .DIN(n116), .Q(n356) );
+  ib1s1 U251 ( .DIN(n119), .Q(n357) );
+  ib1s1 U252 ( .DIN(n140), .Q(n352) );
+  ib1s1 U253 ( .DIN(n152), .Q(n348) );
+  ib1s1 U254 ( .DIN(n236), .Q(n276) );
+  oai22s1 U255 ( .DIN1(n131), .DIN2(n209), .DIN3(n361), .DIN4(n298), .Q(n174)
+         );
+  oai22s1 U256 ( .DIN1(n128), .DIN2(n209), .DIN3(n360), .DIN4(n299), .Q(n176)
+         );
+  ib1s6 U257 ( .DIN(n210), .Q(N199) );
+  ib1s1 U258 ( .DIN(n233), .Q(n273) );
+  ib1s1 U259 ( .DIN(n239), .Q(n275) );
+  ib1s1 U260 ( .DIN(N36), .Q(n330) );
+  nb1s1 U261 ( .DIN(n83), .Q(n298) );
+  nb1s1 U262 ( .DIN(n67), .Q(n300) );
+  nor2s1 U263 ( .DIN1(N29), .DIN2(N30), .Q(n162) );
+  nor2s1 U264 ( .DIN1(n284), .DIN2(N30), .Q(n163) );
+  aoi22s2 U265 ( .DIN1(\saturation[6][1] ), .DIN2(n229), .DIN3(
+        \saturation[2][1] ), .DIN4(n230), .Q(n258) );
+  ib1s1 U266 ( .DIN(N30), .Q(n285) );
+  oai22s1 U267 ( .DIN1(n155), .DIN2(n209), .DIN3(n363), .DIN4(n87), .Q(n170)
+         );
+  oai22s1 U268 ( .DIN1(n134), .DIN2(n209), .DIN3(n362), .DIN4(n85), .Q(n172)
+         );
+  oai22s1 U269 ( .DIN1(n125), .DIN2(n209), .DIN3(n359), .DIN4(n79), .Q(n178)
+         );
+  oai22s1 U270 ( .DIN1(n122), .DIN2(n209), .DIN3(n358), .DIN4(n77), .Q(n180)
+         );
+  oai22s1 U271 ( .DIN1(n113), .DIN2(n209), .DIN3(n350), .DIN4(n71), .Q(n186)
+         );
+  oai22s1 U272 ( .DIN1(n109), .DIN2(n209), .DIN3(n349), .DIN4(n69), .Q(n188)
+         );
+  oai22s1 U273 ( .DIN1(n146), .DIN2(n209), .DIN3(n354), .DIN4(n63), .Q(n194)
+         );
+  oai22s1 U274 ( .DIN1(n143), .DIN2(n209), .DIN3(n353), .DIN4(n61), .Q(n196)
+         );
+  oai22s1 U275 ( .DIN1(n119), .DIN2(n209), .DIN3(n357), .DIN4(n75), .Q(n182)
+         );
+  oai22s1 U276 ( .DIN1(n116), .DIN2(n209), .DIN3(n356), .DIN4(n73), .Q(n184)
+         );
+  oai22s1 U277 ( .DIN1(n140), .DIN2(n209), .DIN3(n352), .DIN4(n59), .Q(n198)
+         );
+  oai22s1 U278 ( .DIN1(n137), .DIN2(n209), .DIN3(n351), .DIN4(n56), .Q(n200)
+         );
+  ib1s1 U279 ( .DIN(N29), .Q(n284) );
+  and2s1 U280 ( .DIN1(N30), .DIN2(n284), .Q(n164) );
+  and2s1 U281 ( .DIN1(N30), .DIN2(N29), .Q(n165) );
+  i1s8 U282 ( .DIN(n304), .Q(n307) );
+  ib1s6 U283 ( .DIN(n290), .Q(n291) );
+  i1s4 U284 ( .DIN(n308), .Q(n290) );
+  nb1s1 U285 ( .DIN(n81), .Q(n299) );
+  ib1s1 U286 ( .DIN(N33), .Q(n327) );
+  ib1s1 U287 ( .DIN(N34), .Q(n328) );
+  ib1s1 U288 ( .DIN(N35), .Q(n329) );
+  ib1s1 U289 ( .DIN(reset), .Q(n365) );
+  oai22s2 U290 ( .DIN1(n152), .DIN2(n209), .DIN3(n348), .DIN4(n300), .Q(n190)
+         );
+  aoi22s2 U291 ( .DIN1(\next_saturation[14][0] ), .DIN2(n227), .DIN3(
+        \next_saturation[10][0] ), .DIN4(n228), .Q(n225) );
+  or2s2 U292 ( .DIN1(n243), .DIN2(n244), .Q(n242) );
+  aoi21s2 U293 ( .DIN1(n249), .DIN2(n250), .DIN3(n236), .Q(n241) );
+  aoi21s2 U294 ( .DIN1(n251), .DIN2(n252), .DIN3(n239), .Q(n240) );
+  aoi21s2 U295 ( .DIN1(n262), .DIN2(n263), .DIN3(n236), .Q(n254) );
+  aoi22s2 U296 ( .DIN1(\saturation[12][1] ), .DIN2(n227), .DIN3(
+        \saturation[8][1] ), .DIN4(n228), .Q(n263) );
+  aoi21s2 U297 ( .DIN1(n264), .DIN2(n265), .DIN3(n239), .Q(n253) );
+  aoi22s2 U298 ( .DIN1(\saturation[13][1] ), .DIN2(n227), .DIN3(
+        \saturation[9][1] ), .DIN4(n228), .Q(n265) );
+  aoi21s2 U299 ( .DIN1(n270), .DIN2(n271), .DIN3(n288), .Q(n215) );
+  nnd2s2 U300 ( .DIN1(n272), .DIN2(n355), .Q(n269) );
+  aoi22s2 U301 ( .DIN1(\next_saturation[7][1] ), .DIN2(n273), .DIN3(
+        \next_saturation[6][1] ), .DIN4(n274), .Q(n271) );
+  aoi22s2 U302 ( .DIN1(\next_saturation[5][1] ), .DIN2(n275), .DIN3(
+        \next_saturation[4][1] ), .DIN4(n276), .Q(n270) );
+  aoi22s2 U303 ( .DIN1(\next_saturation[3][1] ), .DIN2(n273), .DIN3(
+        \next_saturation[2][1] ), .DIN4(n274), .Q(n278) );
+  aoi22s2 U304 ( .DIN1(\next_saturation[1][1] ), .DIN2(n275), .DIN3(
+        \next_saturation[0][1] ), .DIN4(n276), .Q(n277) );
+  aoi21s2 U305 ( .DIN1(n279), .DIN2(n280), .DIN3(n286), .Q(n217) );
+  nnd2s2 U306 ( .DIN1(n272), .DIN2(n281), .Q(n267) );
+  aoi22s2 U307 ( .DIN1(\next_saturation[15][1] ), .DIN2(n273), .DIN3(
+        \next_saturation[14][1] ), .DIN4(n274), .Q(n280) );
+  aoi22s2 U308 ( .DIN1(\next_saturation[13][1] ), .DIN2(n275), .DIN3(
+        \next_saturation[12][1] ), .DIN4(n276), .Q(n279) );
+  aoi21s2 U309 ( .DIN1(n282), .DIN2(n283), .DIN3(n206), .Q(n218) );
+  aoi22s2 U310 ( .DIN1(\next_saturation[11][1] ), .DIN2(n273), .DIN3(
+        \next_saturation[10][1] ), .DIN4(n274), .Q(n283) );
+  nnd2s2 U311 ( .DIN1(N30), .DIN2(n284), .Q(n226) );
+  nnd2s2 U312 ( .DIN1(N30), .DIN2(N29), .Q(n233) );
+  aoi22s2 U313 ( .DIN1(\next_saturation[9][1] ), .DIN2(n275), .DIN3(
+        \next_saturation[8][1] ), .DIN4(n276), .Q(n282) );
+  nnd2s2 U314 ( .DIN1(n285), .DIN2(n284), .Q(n236) );
+  nnd2s2 U315 ( .DIN1(N29), .DIN2(n285), .Q(n239) );
+  or3s3 U316 ( .DIN1(n240), .DIN2(n241), .DIN3(n242), .Q(N127) );
+  ib1s6 U317 ( .DIN(n266), .Q(n228) );
+  aoi21s3 U318 ( .DIN1(n247), .DIN2(n248), .DIN3(n233), .Q(n243) );
+  aoi22s1 U319 ( .DIN1(\next_saturation[7][0] ), .DIN2(n229), .DIN3(
+        \next_saturation[3][0] ), .DIN4(n230), .Q(n231) );
+  aoi22s1 U320 ( .DIN1(\next_saturation[12][0] ), .DIN2(n227), .DIN3(
+        \next_saturation[8][0] ), .DIN4(n289), .Q(n235) );
+  aoi22s1 U321 ( .DIN1(\next_saturation[5][0] ), .DIN2(n229), .DIN3(
+        \next_saturation[1][0] ), .DIN4(n202), .Q(n237) );
+  aoi22s1 U322 ( .DIN1(\next_saturation[4][0] ), .DIN2(n229), .DIN3(
+        \next_saturation[0][0] ), .DIN4(n202), .Q(n234) );
+  aoi22s3 U323 ( .DIN1(\saturation[15][0] ), .DIN2(n227), .DIN3(
+        \saturation[11][0] ), .DIN4(n228), .Q(n248) );
+  aoi22s1 U324 ( .DIN1(\saturation[5][0] ), .DIN2(n229), .DIN3(
+        \saturation[1][0] ), .DIN4(n230), .Q(n251) );
+  aoi22s1 U325 ( .DIN1(\saturation[4][0] ), .DIN2(n229), .DIN3(
+        \saturation[0][0] ), .DIN4(n230), .Q(n249) );
+  aoi22s1 U326 ( .DIN1(\saturation[12][0] ), .DIN2(n227), .DIN3(
+        \saturation[8][0] ), .DIN4(n228), .Q(n250) );
+  aoi22s1 U327 ( .DIN1(\saturation[13][0] ), .DIN2(n227), .DIN3(
+        \saturation[9][0] ), .DIN4(n228), .Q(n252) );
+  ib1s6 U328 ( .DIN(n267), .Q(n227) );
+  hi1s1 U329 ( .DIN(n227), .Q(n286) );
+  i1s4 U330 ( .DIN(n355), .Q(n281) );
+  ib1s6 U331 ( .DIN(n268), .Q(n230) );
+  hi1s1 U332 ( .DIN(n230), .Q(n287) );
+  hi1s1 U333 ( .DIN(n229), .Q(n288) );
+  nnd2s3 U334 ( .DIN1(n281), .DIN2(n364), .Q(n266) );
+  i1s3 U335 ( .DIN(n364), .Q(n272) );
+  aoi22s1 U336 ( .DIN1(\saturation[4][1] ), .DIN2(n229), .DIN3(
+        \saturation[0][1] ), .DIN4(n230), .Q(n262) );
+  aoi22s1 U337 ( .DIN1(\saturation[5][1] ), .DIN2(n229), .DIN3(
+        \saturation[1][1] ), .DIN4(n230), .Q(n264) );
+  aoi22s3 U338 ( .DIN1(\saturation[6][0] ), .DIN2(n229), .DIN3(
+        \saturation[2][0] ), .DIN4(n230), .Q(n245) );
+  aoi22s3 U339 ( .DIN1(\saturation[7][0] ), .DIN2(n229), .DIN3(
+        \saturation[3][0] ), .DIN4(n230), .Q(n247) );
+  hi1s1 U340 ( .DIN(n206), .Q(n289) );
+  mxi21s1 U341 ( .DIN1(n88), .DIN2(n291), .SIN(n363), .Q(
+        \next_saturation[0][0] ) );
+  mxi21s1 U342 ( .DIN1(n64), .DIN2(n291), .SIN(n354), .Q(
+        \next_saturation[12][0] ) );
+  mxi21s1 U343 ( .DIN1(n80), .DIN2(n291), .SIN(n359), .Q(
+        \next_saturation[4][0] ) );
+  mxi21s1 U344 ( .DIN1(n60), .DIN2(n291), .SIN(n352), .Q(
+        \next_saturation[14][0] ) );
+  mxi21s1 U345 ( .DIN1(n58), .DIN2(n291), .SIN(n351), .Q(
+        \next_saturation[15][0] ) );
+  mxi21s1 U346 ( .DIN1(n70), .DIN2(n291), .SIN(n349), .Q(
+        \next_saturation[9][0] ) );
+  mxi21s1 U347 ( .DIN1(n72), .DIN2(n291), .SIN(n350), .Q(
+        \next_saturation[8][0] ) );
+  mxi21s1 U348 ( .DIN1(n74), .DIN2(n291), .SIN(n356), .Q(
+        \next_saturation[7][0] ) );
+  mxi21s1 U349 ( .DIN1(n78), .DIN2(n291), .SIN(n358), .Q(
+        \next_saturation[5][0] ) );
+  mxi21s1 U350 ( .DIN1(n62), .DIN2(n291), .SIN(n353), .Q(
+        \next_saturation[13][0] ) );
+  mxi21s1 U351 ( .DIN1(n86), .DIN2(n291), .SIN(n362), .Q(
+        \next_saturation[1][0] ) );
+  nnd2s2 U352 ( .DIN1(N127), .DIN2(N126), .Q(n305) );
+  hnb1s1 U353 ( .DIN(n355), .Q(n292) );
+  ib1s1 U354 ( .DIN(n296), .Q(n293) );
+  i1s3 U355 ( .DIN(N31), .Q(n364) );
+  ib1s1 U356 ( .DIN(n295), .Q(n294) );
+  nor2s1 U357 ( .DIN1(n293), .DIN2(n294), .Q(n168) );
+  hi1s1 U358 ( .DIN(n364), .Q(n296) );
+  nor2s1 U359 ( .DIN1(n294), .DIN2(n296), .Q(n167) );
+  nor2s1 U360 ( .DIN1(n293), .DIN2(n295), .Q(n166) );
+  nor2s1 U361 ( .DIN1(n296), .DIN2(n295), .Q(n161) );
+  oai21s1 U362 ( .DIN1(N127), .DIN2(n203), .DIN3(wb_taken), .Q(n303) );
+  nnd2s2 U363 ( .DIN1(n305), .DIN2(N127), .Q(n306) );
+  nnd2s1 U364 ( .DIN1(n303), .DIN2(n305), .Q(n304) );
+  oai22s2 U365 ( .DIN1(n149), .DIN2(n209), .DIN3(n347), .DIN4(n201), .Q(n192)
+         );
+  nnd2s2 U366 ( .DIN1(n212), .DIN2(n165), .Q(n137) );
+  mxi21s2 U367 ( .DIN1(\saturation[15][0] ), .DIN2(N199), .SIN(n351), .Q(n346)
+         );
+  mxi21s2 U368 ( .DIN1(n56), .DIN2(n307), .SIN(n351), .Q(
+        \next_saturation[15][1] ) );
+  aoi21s3 U369 ( .DIN1(wb_taken), .DIN2(n306), .DIN3(n203), .Q(n308) );
+  nnd2s2 U370 ( .DIN1(n212), .DIN2(n164), .Q(n140) );
+  mxi21s2 U371 ( .DIN1(\saturation[14][0] ), .DIN2(N199), .SIN(n352), .Q(n345)
+         );
+  mxi21s2 U372 ( .DIN1(n59), .DIN2(n307), .SIN(n352), .Q(
+        \next_saturation[14][1] ) );
+  nnd2s2 U373 ( .DIN1(n212), .DIN2(n163), .Q(n143) );
+  mxi21s2 U374 ( .DIN1(\saturation[13][0] ), .DIN2(N199), .SIN(n353), .Q(n344)
+         );
+  mxi21s2 U375 ( .DIN1(n61), .DIN2(n307), .SIN(n353), .Q(
+        \next_saturation[13][1] ) );
+  nnd2s2 U376 ( .DIN1(n212), .DIN2(n162), .Q(n146) );
+  mxi21s2 U377 ( .DIN1(\saturation[12][0] ), .DIN2(N199), .SIN(n354), .Q(n343)
+         );
+  mxi21s2 U378 ( .DIN1(n63), .DIN2(n307), .SIN(n354), .Q(
+        \next_saturation[12][1] ) );
+  nnd2s2 U379 ( .DIN1(n213), .DIN2(n165), .Q(n149) );
+  mxi21s2 U380 ( .DIN1(\saturation[11][0] ), .DIN2(N199), .SIN(n347), .Q(n342)
+         );
+  mxi21s2 U381 ( .DIN1(n201), .DIN2(n307), .SIN(n347), .Q(
+        \next_saturation[11][1] ) );
+  mxi21s2 U382 ( .DIN1(n301), .DIN2(n291), .SIN(n347), .Q(
+        \next_saturation[11][0] ) );
+  nnd2s2 U383 ( .DIN1(n213), .DIN2(n164), .Q(n152) );
+  mxi21s2 U384 ( .DIN1(\saturation[10][0] ), .DIN2(N199), .SIN(n348), .Q(n341)
+         );
+  mxi21s2 U385 ( .DIN1(n300), .DIN2(n307), .SIN(n348), .Q(
+        \next_saturation[10][1] ) );
+  nnd2s2 U386 ( .DIN1(n213), .DIN2(n163), .Q(n109) );
+  mxi21s2 U387 ( .DIN1(\saturation[9][0] ), .DIN2(N199), .SIN(n349), .Q(n340)
+         );
+  mxi21s2 U388 ( .DIN1(n69), .DIN2(n307), .SIN(n349), .Q(
+        \next_saturation[9][1] ) );
+  nnd2s2 U389 ( .DIN1(n213), .DIN2(n162), .Q(n113) );
+  mxi21s2 U390 ( .DIN1(\saturation[8][0] ), .DIN2(N199), .SIN(n350), .Q(n339)
+         );
+  mxi21s2 U391 ( .DIN1(n71), .DIN2(n307), .SIN(n350), .Q(
+        \next_saturation[8][1] ) );
+  nnd2s2 U392 ( .DIN1(n211), .DIN2(n165), .Q(n116) );
+  mxi21s2 U393 ( .DIN1(\saturation[7][0] ), .DIN2(N199), .SIN(n356), .Q(n338)
+         );
+  mxi21s2 U394 ( .DIN1(n73), .DIN2(n307), .SIN(n356), .Q(
+        \next_saturation[7][1] ) );
+  nnd2s2 U395 ( .DIN1(n211), .DIN2(n164), .Q(n119) );
+  mxi21s2 U396 ( .DIN1(\saturation[6][0] ), .DIN2(N199), .SIN(n357), .Q(n337)
+         );
+  mxi21s2 U397 ( .DIN1(n75), .DIN2(n307), .SIN(n357), .Q(
+        \next_saturation[6][1] ) );
+  nnd2s2 U398 ( .DIN1(n211), .DIN2(n163), .Q(n122) );
+  mxi21s2 U399 ( .DIN1(\saturation[5][0] ), .DIN2(N199), .SIN(n358), .Q(n336)
+         );
+  mxi21s2 U400 ( .DIN1(n77), .DIN2(n307), .SIN(n358), .Q(
+        \next_saturation[5][1] ) );
+  nnd2s2 U401 ( .DIN1(n211), .DIN2(n162), .Q(n125) );
+  mxi21s2 U402 ( .DIN1(\saturation[4][0] ), .DIN2(N199), .SIN(n359), .Q(n335)
+         );
+  mxi21s2 U403 ( .DIN1(n79), .DIN2(n307), .SIN(n359), .Q(
+        \next_saturation[4][1] ) );
+  nnd2s2 U404 ( .DIN1(n165), .DIN2(n214), .Q(n128) );
+  mxi21s2 U405 ( .DIN1(\saturation[3][0] ), .DIN2(N199), .SIN(n360), .Q(n334)
+         );
+  mxi21s2 U406 ( .DIN1(n299), .DIN2(n307), .SIN(n360), .Q(
+        \next_saturation[3][1] ) );
+  mxi21s2 U407 ( .DIN1(n297), .DIN2(n291), .SIN(n360), .Q(
+        \next_saturation[3][0] ) );
+  nnd2s2 U408 ( .DIN1(n164), .DIN2(n214), .Q(n131) );
+  mxi21s2 U409 ( .DIN1(\saturation[2][0] ), .DIN2(N199), .SIN(n361), .Q(n333)
+         );
+  mxi21s2 U410 ( .DIN1(n298), .DIN2(n307), .SIN(n361), .Q(
+        \next_saturation[2][1] ) );
+  mxi21s2 U411 ( .DIN1(n84), .DIN2(n291), .SIN(n361), .Q(
+        \next_saturation[2][0] ) );
+  nnd2s2 U412 ( .DIN1(n163), .DIN2(n214), .Q(n134) );
+  mxi21s2 U413 ( .DIN1(\saturation[1][0] ), .DIN2(N199), .SIN(n362), .Q(n332)
+         );
+  mxi21s2 U414 ( .DIN1(n85), .DIN2(n307), .SIN(n362), .Q(
+        \next_saturation[1][1] ) );
+  nnd2s2 U415 ( .DIN1(n162), .DIN2(n214), .Q(n155) );
+  mxi21s2 U416 ( .DIN1(\saturation[0][0] ), .DIN2(N199), .SIN(n363), .Q(n331)
+         );
+  mxi21s2 U417 ( .DIN1(n87), .DIN2(n307), .SIN(n363), .Q(
+        \next_saturation[0][1] ) );
+  nor2s1 U418 ( .DIN1(n328), .DIN2(N33), .Q(n318) );
+  nor2s1 U419 ( .DIN1(n328), .DIN2(n327), .Q(n317) );
+  nor2s1 U420 ( .DIN1(N33), .DIN2(N34), .Q(n320) );
+  nor2s1 U421 ( .DIN1(n327), .DIN2(N34), .Q(n319) );
+  aoi22s1 U422 ( .DIN1(\next_saturation[10][1] ), .DIN2(n318), .DIN3(
+        \next_saturation[11][1] ), .DIN4(n317), .Q(n310) );
+  aoi22s1 U423 ( .DIN1(\next_saturation[8][1] ), .DIN2(n320), .DIN3(
+        \next_saturation[9][1] ), .DIN4(n319), .Q(n309) );
+  aoi21s1 U424 ( .DIN1(n310), .DIN2(n309), .DIN3(N35), .Q(n314) );
+  aoi22s1 U425 ( .DIN1(\next_saturation[14][1] ), .DIN2(n318), .DIN3(
+        \next_saturation[15][1] ), .DIN4(n317), .Q(n312) );
+  aoi22s1 U426 ( .DIN1(\next_saturation[12][1] ), .DIN2(n320), .DIN3(
+        \next_saturation[13][1] ), .DIN4(n319), .Q(n311) );
+  aoi21s1 U427 ( .DIN1(n312), .DIN2(n311), .DIN3(n329), .Q(n313) );
+  oai21s1 U428 ( .DIN1(n314), .DIN2(n313), .DIN3(N36), .Q(n326) );
+  aoi22s1 U429 ( .DIN1(\next_saturation[2][1] ), .DIN2(n318), .DIN3(
+        \next_saturation[3][1] ), .DIN4(n317), .Q(n316) );
+  aoi22s1 U430 ( .DIN1(\next_saturation[0][1] ), .DIN2(n320), .DIN3(
+        \next_saturation[1][1] ), .DIN4(n319), .Q(n315) );
+  aoi21s1 U431 ( .DIN1(n316), .DIN2(n315), .DIN3(N35), .Q(n324) );
+  aoi22s1 U432 ( .DIN1(\next_saturation[6][1] ), .DIN2(n318), .DIN3(
+        \next_saturation[7][1] ), .DIN4(n317), .Q(n322) );
+  aoi22s1 U433 ( .DIN1(\next_saturation[4][1] ), .DIN2(n320), .DIN3(
+        \next_saturation[5][1] ), .DIN4(n319), .Q(n321) );
+  aoi21s1 U434 ( .DIN1(n322), .DIN2(n321), .DIN3(n329), .Q(n323) );
+  oai21s1 U435 ( .DIN1(n324), .DIN2(n323), .DIN3(n330), .Q(n325) );
+  nnd2s1 U436 ( .DIN1(n326), .DIN2(n325), .Q(taken) );
+endmodule
+

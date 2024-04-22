@@ -1,0 +1,43 @@
+/////////////////////////////////////////////////////////////
+// Created by: Synopsys DC Expert(TM) in wire load mode
+// Version   : O-2018.06
+// Date      : Tue Dec  8 22:32:32 2020
+/////////////////////////////////////////////////////////////
+
+
+module onehot_to_binary_RS ( oh, bin );
+  input [31:0] oh;
+  output [4:0] bin;
+  wire   n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11, n12, n13, n14;
+
+  nnd2s2 U8 ( .DIN1(n10), .DIN2(n3), .Q(n9) );
+  or5s3 U20 ( .DIN1(oh[2]), .DIN2(oh[26]), .DIN3(oh[18]), .DIN4(n2), .DIN5(n11), .Q(bin[1]) );
+  nnd4s1 U21 ( .DIN1(n10), .DIN2(n12), .DIN3(n13), .DIN4(n14), .Q(bin[0]) );
+  nor4s1 U22 ( .DIN1(oh[9]), .DIN2(oh[25]), .DIN3(oh[1]), .DIN4(oh[17]), .Q(
+        n14) );
+  or5s2 U23 ( .DIN1(oh[10]), .DIN2(n4), .DIN3(oh[12]), .DIN4(oh[11]), .DIN5(n6), .Q(bin[3]) );
+  or5s1 U24 ( .DIN1(oh[9]), .DIN2(oh[8]), .DIN3(oh[15]), .DIN4(oh[14]), .DIN5(
+        oh[13]), .Q(n6) );
+  or5s2 U25 ( .DIN1(oh[16]), .DIN2(n4), .DIN3(oh[18]), .DIN4(oh[17]), .DIN5(n5), .Q(bin[4]) );
+  or5s1 U26 ( .DIN1(oh[23]), .DIN2(oh[22]), .DIN3(oh[21]), .DIN4(oh[20]), 
+        .DIN5(oh[19]), .Q(n5) );
+  or5s2 U27 ( .DIN1(oh[4]), .DIN2(oh[28]), .DIN3(oh[20]), .DIN4(n8), .DIN5(n9), 
+        .Q(bin[2]) );
+  ib1s1 U28 ( .DIN(oh[12]), .Q(n3) );
+  ib1s1 U29 ( .DIN(n13), .Q(n2) );
+  or2s1 U30 ( .DIN1(n8), .DIN2(oh[10]), .Q(n11) );
+  or5s1 U31 ( .DIN1(oh[25]), .DIN2(oh[24]), .DIN3(oh[27]), .DIN4(oh[26]), 
+        .DIN5(n7), .Q(n4) );
+  or4s1 U32 ( .DIN1(oh[28]), .DIN2(oh[29]), .DIN3(oh[30]), .DIN4(oh[31]), .Q(
+        n7) );
+  nor4s1 U33 ( .DIN1(oh[19]), .DIN2(oh[11]), .DIN3(oh[3]), .DIN4(oh[27]), .Q(
+        n13) );
+  nor4s1 U34 ( .DIN1(oh[23]), .DIN2(oh[15]), .DIN3(oh[7]), .DIN4(oh[31]), .Q(
+        n12) );
+  nor4s1 U35 ( .DIN1(oh[21]), .DIN2(oh[13]), .DIN3(oh[5]), .DIN4(oh[29]), .Q(
+        n10) );
+  or5s1 U36 ( .DIN1(oh[6]), .DIN2(oh[30]), .DIN3(oh[22]), .DIN4(oh[14]), 
+        .DIN5(n1), .Q(n8) );
+  ib1s1 U37 ( .DIN(n12), .Q(n1) );
+endmodule
+

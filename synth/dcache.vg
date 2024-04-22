@@ -1,0 +1,391 @@
+/////////////////////////////////////////////////////////////
+// Created by: Synopsys DC Expert(TM) in wire load mode
+// Version   : O-2018.06
+// Date      : Tue Dec  8 21:55:22 2020
+/////////////////////////////////////////////////////////////
+
+
+module dcache ( clock, reset, Dmem2Dctrl_response, Dmem2Dctrl_tag, 
+        reject_D_req, proc2Dctrl_command, proc2Dctrl_addr, Dcache2Dctrl_data, 
+        Dcache_proc_hit, Dctrl2Dmem_command, Dctrl2Dmem_addr, Dctrl2proc_data, 
+        Dctrl2proc_valid, .current_addr({\current_addr[tag][8] , 
+        \current_addr[tag][7] , \current_addr[tag][6] , \current_addr[tag][5] , 
+        \current_addr[tag][4] , \current_addr[tag][3] , \current_addr[tag][2] , 
+        \current_addr[tag][1] , \current_addr[tag][0] , \current_addr[idx][3] , 
+        \current_addr[idx][2] , \current_addr[idx][1] , \current_addr[idx][0] , 
+        \current_addr[bo][2] , \current_addr[bo][1] , \current_addr[bo][0] }), 
+        mem_busy, cache_busy, mem_write_enable, .mem_write_addr({
+        \mem_write_addr[tag][8] , \mem_write_addr[tag][7] , 
+        \mem_write_addr[tag][6] , \mem_write_addr[tag][5] , 
+        \mem_write_addr[tag][4] , \mem_write_addr[tag][3] , 
+        \mem_write_addr[tag][2] , \mem_write_addr[tag][1] , 
+        \mem_write_addr[tag][0] , \mem_write_addr[idx][3] , 
+        \mem_write_addr[idx][2] , \mem_write_addr[idx][1] , 
+        \mem_write_addr[idx][0] , \mem_write_addr[bo][2] , 
+        \mem_write_addr[bo][1] , \mem_write_addr[bo][0] }), proc_write_enable, 
+        proc_read_enable );
+  input [3:0] Dmem2Dctrl_response;
+  input [3:0] Dmem2Dctrl_tag;
+  input [1:0] proc2Dctrl_command;
+  input [31:0] proc2Dctrl_addr;
+  input [31:0] Dcache2Dctrl_data;
+  output [1:0] Dctrl2Dmem_command;
+  output [31:0] Dctrl2Dmem_addr;
+  output [31:0] Dctrl2proc_data;
+  input clock, reset, reject_D_req, Dcache_proc_hit;
+  output Dctrl2proc_valid, \current_addr[tag][8] , \current_addr[tag][7] ,
+         \current_addr[tag][6] , \current_addr[tag][5] ,
+         \current_addr[tag][4] , \current_addr[tag][3] ,
+         \current_addr[tag][2] , \current_addr[tag][1] ,
+         \current_addr[tag][0] , \current_addr[idx][3] ,
+         \current_addr[idx][2] , \current_addr[idx][1] ,
+         \current_addr[idx][0] , \current_addr[bo][2] , \current_addr[bo][1] ,
+         \current_addr[bo][0] , mem_busy, cache_busy, mem_write_enable,
+         \mem_write_addr[tag][8] , \mem_write_addr[tag][7] ,
+         \mem_write_addr[tag][6] , \mem_write_addr[tag][5] ,
+         \mem_write_addr[tag][4] , \mem_write_addr[tag][3] ,
+         \mem_write_addr[tag][2] , \mem_write_addr[tag][1] ,
+         \mem_write_addr[tag][0] , \mem_write_addr[idx][3] ,
+         \mem_write_addr[idx][2] , \mem_write_addr[idx][1] ,
+         \mem_write_addr[idx][0] , \mem_write_addr[bo][2] ,
+         \mem_write_addr[bo][1] , \mem_write_addr[bo][0] , proc_write_enable,
+         proc_read_enable;
+  wire   \last_addr[tag][6] , \last_addr[tag][2] , \last_addr[idx][1] ,
+         \last_addr[idx][0] , unanswered_miss, N25, n26, n27, n29, n30, n58,
+         n59, n60, n61, n62, n63, n72, n73, n74, n78, n80, n82, n84, n86, n88,
+         n90, n92, n94, n96, n98, n100, n102, n104, n106, n108, n110, n112,
+         n114, n116, n118, n120, n122, n124, n126, n128, n130, n132, n134,
+         n136, n138, n140, n142, n144, n146, n148, n150, n152, n154, n156,
+         n158, n160, n162, n164, n166, n168, n170, n172, n174, n176, n178,
+         n180, n182, n184, n186, n188, n190, n192, n194, n196, n198, n200,
+         n202, n205, n206, n207, n208, n209, n210, n211, n212, n215, n216,
+         n217, n218, n219, n220, n221, n222, n223, n224, n240, n241, n242,
+         n243, n244, n245, n246, n247, n249, n250, n251, n252, n253, n254,
+         n255, n256, n257, n258, n259, n260, n261, n262, n263, n264, n265,
+         n266, n267, n268, n269, n270, n271, n272, n273, n274, n275, n276,
+         n277, n278, n279, n280, n281, n282, n283, n284, n285, n286, n287,
+         n288, n289, n290, n291, n292, n293, n294, n295, n296, n297, n298,
+         n299, n300, n301, n302, n303, n304, n306, n307, n308, n309, n310,
+         n311, n312, n313, n314, n315, n316, n317, n318, n319, n320, n321;
+  wire   [3:0] current_mem_tag;
+  assign proc_read_enable = N25;
+
+  dffss1 \last_addr_reg[idx][0]  ( .DIN(reset), .SETB(n320), .CLK(clock), .Q(
+        \last_addr[idx][0] ) );
+  dffles1 \last_proc2Dctrl_command_reg[1]  ( .DIN(n251), .EB(reset), .CLK(
+        clock), .QN(n218) );
+  dffss1 \last_addr_reg[idx][3]  ( .DIN(reset), .SETB(n317), .CLK(clock), .QN(
+        n249) );
+  dffss1 \last_addr_reg[tag][1]  ( .DIN(reset), .SETB(n212), .CLK(clock), .QN(
+        n246) );
+  dffss1 \last_addr_reg[tag][3]  ( .DIN(reset), .SETB(n198), .CLK(clock), .QN(
+        n223) );
+  dffss1 \last_addr_reg[idx][2]  ( .DIN(reset), .SETB(n318), .CLK(clock), .QN(
+        n242) );
+  dffss1 \last_addr_reg[idx][1]  ( .DIN(reset), .SETB(n202), .CLK(clock), .Q(
+        \last_addr[idx][1] ) );
+  dffss1 \last_addr_reg[tag][6]  ( .DIN(reset), .SETB(n245), .CLK(clock), .Q(
+        \last_addr[tag][6] ) );
+  dffss1 \last_addr_reg[tag][5]  ( .DIN(reset), .SETB(n244), .CLK(clock), .QN(
+        n221) );
+  dffss1 \last_addr_reg[tag][8]  ( .DIN(reset), .SETB(n308), .CLK(clock), .QN(
+        n222) );
+  dffss1 \last_addr_reg[tag][7]  ( .DIN(reset), .SETB(n309), .CLK(clock), .QN(
+        n220) );
+  dffss1 \last_addr_reg[tag][2]  ( .DIN(reset), .SETB(n314), .CLK(clock), .Q(
+        \last_addr[tag][2] ) );
+  dffss1 \last_addr_reg[tag][4]  ( .DIN(reset), .SETB(n312), .CLK(clock), .QN(
+        n224) );
+  dffss1 \last_addr_reg[tag][0]  ( .DIN(reset), .SETB(n200), .CLK(clock), .QN(
+        n209) );
+  dffcs1 \current_mem_tag_reg[3]  ( .CLRB(n62), .DIN(n306), .CLK(clock), .Q(
+        current_mem_tag[3]), .QN(n26) );
+  dffcs1 \current_mem_tag_reg[2]  ( .CLRB(n61), .DIN(n306), .CLK(clock), .Q(
+        current_mem_tag[2]), .QN(n27) );
+  dffcs1 \current_mem_tag_reg[0]  ( .CLRB(n63), .DIN(n306), .CLK(clock), .Q(
+        current_mem_tag[0]), .QN(n29) );
+  dffcs1 miss_outstanding_reg ( .CLRB(unanswered_miss), .DIN(n306), .CLK(clock), .QN(n30) );
+  dffcs1 \current_mem_tag_reg[1]  ( .CLRB(n60), .DIN(n306), .CLK(clock), .Q(
+        n292) );
+  dffles1 \last_proc2Dctrl_command_reg[0]  ( .DIN(n252), .EB(reset), .CLK(
+        clock), .QN(n215) );
+  ib1s1 U80 ( .DIN(1'b1), .Q(Dctrl2Dmem_addr[0]) );
+  ib1s1 U82 ( .DIN(1'b1), .Q(Dctrl2Dmem_addr[1]) );
+  ib1s1 U84 ( .DIN(1'b1), .Q(Dctrl2Dmem_addr[2]) );
+  ib1s1 U86 ( .DIN(1'b1), .Q(Dctrl2Dmem_command[1]) );
+  i1s1 U88 ( .DIN(proc2Dctrl_command[0]), .Q(n321) );
+  ib1s1 U89 ( .DIN(n73), .Q(n250) );
+  i1s3 U90 ( .DIN(n275), .Q(n284) );
+  ib1s1 U91 ( .DIN(reject_D_req), .Q(n254) );
+  nb1s2 U92 ( .DIN(\mem_write_addr[idx][0] ), .Q(\current_addr[idx][0] ) );
+  nor4s1 U93 ( .DIN1(n30), .DIN2(n304), .DIN3(n303), .DIN4(n302), .Q(
+        Dctrl2Dmem_command[0]) );
+  hi1s1 U94 ( .DIN(proc2Dctrl_command[1]), .Q(n72) );
+  i1s1 U95 ( .DIN(n72), .Q(n73) );
+  hnb1s1 U96 ( .DIN(n296), .Q(n74) );
+  hi1s1 U97 ( .DIN(\mem_write_addr[tag][3] ), .Q(n198) );
+  hi1s1 U98 ( .DIN(n309), .Q(\mem_write_addr[tag][7] ) );
+  and2s2 U99 ( .DIN1(proc2Dctrl_addr[0]), .DIN2(n241), .Q(
+        \mem_write_addr[bo][0] ) );
+  and2s2 U100 ( .DIN1(proc2Dctrl_addr[1]), .DIN2(n241), .Q(
+        \mem_write_addr[bo][1] ) );
+  and2s2 U101 ( .DIN1(proc2Dctrl_addr[2]), .DIN2(n241), .Q(
+        \mem_write_addr[bo][2] ) );
+  nnd2s2 U102 ( .DIN1(proc2Dctrl_addr[6]), .DIN2(n240), .Q(n317) );
+  ib1s6 U103 ( .DIN(n312), .Q(\mem_write_addr[tag][4] ) );
+  nnd2s2 U104 ( .DIN1(proc2Dctrl_addr[11]), .DIN2(n240), .Q(n312) );
+  nnd2s2 U105 ( .DIN1(proc2Dctrl_addr[5]), .DIN2(n240), .Q(n318) );
+  i1s3 U106 ( .DIN(proc2Dctrl_command[1]), .Q(n256) );
+  hi1s1 U107 ( .DIN(Dcache2Dctrl_data[0]), .Q(n78) );
+  hi1s1 U108 ( .DIN(n78), .Q(Dctrl2proc_data[0]) );
+  hi1s1 U109 ( .DIN(Dcache2Dctrl_data[1]), .Q(n80) );
+  hi1s1 U110 ( .DIN(n80), .Q(Dctrl2proc_data[1]) );
+  hi1s1 U111 ( .DIN(Dcache2Dctrl_data[2]), .Q(n82) );
+  hi1s1 U112 ( .DIN(n82), .Q(Dctrl2proc_data[2]) );
+  hi1s1 U113 ( .DIN(Dcache2Dctrl_data[3]), .Q(n84) );
+  hi1s1 U114 ( .DIN(n84), .Q(Dctrl2proc_data[3]) );
+  hi1s1 U115 ( .DIN(Dcache2Dctrl_data[4]), .Q(n86) );
+  hi1s1 U116 ( .DIN(n86), .Q(Dctrl2proc_data[4]) );
+  hi1s1 U117 ( .DIN(Dcache2Dctrl_data[5]), .Q(n88) );
+  hi1s1 U118 ( .DIN(n88), .Q(Dctrl2proc_data[5]) );
+  hi1s1 U119 ( .DIN(Dcache2Dctrl_data[6]), .Q(n90) );
+  hi1s1 U120 ( .DIN(n90), .Q(Dctrl2proc_data[6]) );
+  hi1s1 U121 ( .DIN(Dcache2Dctrl_data[7]), .Q(n92) );
+  hi1s1 U122 ( .DIN(n92), .Q(Dctrl2proc_data[7]) );
+  hi1s1 U123 ( .DIN(Dcache2Dctrl_data[8]), .Q(n94) );
+  hi1s1 U124 ( .DIN(n94), .Q(Dctrl2proc_data[8]) );
+  hi1s1 U125 ( .DIN(Dcache2Dctrl_data[9]), .Q(n96) );
+  hi1s1 U126 ( .DIN(n96), .Q(Dctrl2proc_data[9]) );
+  hi1s1 U127 ( .DIN(Dcache2Dctrl_data[10]), .Q(n98) );
+  hi1s1 U128 ( .DIN(n98), .Q(Dctrl2proc_data[10]) );
+  hi1s1 U129 ( .DIN(Dcache2Dctrl_data[11]), .Q(n100) );
+  hi1s1 U130 ( .DIN(n100), .Q(Dctrl2proc_data[11]) );
+  hi1s1 U131 ( .DIN(Dcache2Dctrl_data[12]), .Q(n102) );
+  hi1s1 U132 ( .DIN(n102), .Q(Dctrl2proc_data[12]) );
+  hi1s1 U133 ( .DIN(Dcache2Dctrl_data[13]), .Q(n104) );
+  hi1s1 U134 ( .DIN(n104), .Q(Dctrl2proc_data[13]) );
+  hi1s1 U135 ( .DIN(Dcache2Dctrl_data[14]), .Q(n106) );
+  hi1s1 U136 ( .DIN(n106), .Q(Dctrl2proc_data[14]) );
+  hi1s1 U137 ( .DIN(Dcache2Dctrl_data[15]), .Q(n108) );
+  hi1s1 U138 ( .DIN(n108), .Q(Dctrl2proc_data[15]) );
+  hi1s1 U139 ( .DIN(Dcache2Dctrl_data[16]), .Q(n110) );
+  hi1s1 U140 ( .DIN(n110), .Q(Dctrl2proc_data[16]) );
+  hi1s1 U141 ( .DIN(Dcache2Dctrl_data[17]), .Q(n112) );
+  hi1s1 U142 ( .DIN(n112), .Q(Dctrl2proc_data[17]) );
+  hi1s1 U143 ( .DIN(Dcache2Dctrl_data[18]), .Q(n114) );
+  hi1s1 U144 ( .DIN(n114), .Q(Dctrl2proc_data[18]) );
+  hi1s1 U145 ( .DIN(Dcache2Dctrl_data[19]), .Q(n116) );
+  hi1s1 U146 ( .DIN(n116), .Q(Dctrl2proc_data[19]) );
+  hi1s1 U147 ( .DIN(Dcache2Dctrl_data[20]), .Q(n118) );
+  hi1s1 U148 ( .DIN(n118), .Q(Dctrl2proc_data[20]) );
+  hi1s1 U149 ( .DIN(Dcache2Dctrl_data[21]), .Q(n120) );
+  hi1s1 U150 ( .DIN(n120), .Q(Dctrl2proc_data[21]) );
+  hi1s1 U151 ( .DIN(Dcache2Dctrl_data[22]), .Q(n122) );
+  hi1s1 U152 ( .DIN(n122), .Q(Dctrl2proc_data[22]) );
+  hi1s1 U153 ( .DIN(Dcache2Dctrl_data[23]), .Q(n124) );
+  hi1s1 U154 ( .DIN(n124), .Q(Dctrl2proc_data[23]) );
+  hi1s1 U155 ( .DIN(Dcache2Dctrl_data[24]), .Q(n126) );
+  hi1s1 U156 ( .DIN(n126), .Q(Dctrl2proc_data[24]) );
+  hi1s1 U157 ( .DIN(Dcache2Dctrl_data[25]), .Q(n128) );
+  hi1s1 U158 ( .DIN(n128), .Q(Dctrl2proc_data[25]) );
+  hi1s1 U159 ( .DIN(Dcache2Dctrl_data[26]), .Q(n130) );
+  hi1s1 U160 ( .DIN(n130), .Q(Dctrl2proc_data[26]) );
+  hi1s1 U161 ( .DIN(Dcache2Dctrl_data[27]), .Q(n132) );
+  hi1s1 U162 ( .DIN(n132), .Q(Dctrl2proc_data[27]) );
+  hi1s1 U163 ( .DIN(Dcache2Dctrl_data[28]), .Q(n134) );
+  hi1s1 U164 ( .DIN(n134), .Q(Dctrl2proc_data[28]) );
+  hi1s1 U165 ( .DIN(Dcache2Dctrl_data[29]), .Q(n136) );
+  hi1s1 U166 ( .DIN(n136), .Q(Dctrl2proc_data[29]) );
+  hi1s1 U167 ( .DIN(Dcache2Dctrl_data[30]), .Q(n138) );
+  hi1s1 U168 ( .DIN(n138), .Q(Dctrl2proc_data[30]) );
+  hi1s1 U169 ( .DIN(Dcache2Dctrl_data[31]), .Q(n140) );
+  hi1s1 U170 ( .DIN(n140), .Q(Dctrl2proc_data[31]) );
+  hi1s1 U171 ( .DIN(proc2Dctrl_addr[16]), .Q(n142) );
+  hi1s1 U172 ( .DIN(n142), .Q(Dctrl2Dmem_addr[16]) );
+  hi1s1 U173 ( .DIN(proc2Dctrl_addr[17]), .Q(n144) );
+  hi1s1 U174 ( .DIN(n144), .Q(Dctrl2Dmem_addr[17]) );
+  hi1s1 U175 ( .DIN(proc2Dctrl_addr[18]), .Q(n146) );
+  hi1s1 U176 ( .DIN(n146), .Q(Dctrl2Dmem_addr[18]) );
+  hi1s1 U177 ( .DIN(proc2Dctrl_addr[19]), .Q(n148) );
+  hi1s1 U178 ( .DIN(n148), .Q(Dctrl2Dmem_addr[19]) );
+  hi1s1 U179 ( .DIN(proc2Dctrl_addr[20]), .Q(n150) );
+  hi1s1 U180 ( .DIN(n150), .Q(Dctrl2Dmem_addr[20]) );
+  hi1s1 U181 ( .DIN(proc2Dctrl_addr[21]), .Q(n152) );
+  hi1s1 U182 ( .DIN(n152), .Q(Dctrl2Dmem_addr[21]) );
+  hi1s1 U183 ( .DIN(proc2Dctrl_addr[22]), .Q(n154) );
+  hi1s1 U184 ( .DIN(n154), .Q(Dctrl2Dmem_addr[22]) );
+  hi1s1 U185 ( .DIN(proc2Dctrl_addr[23]), .Q(n156) );
+  hi1s1 U186 ( .DIN(n156), .Q(Dctrl2Dmem_addr[23]) );
+  hi1s1 U187 ( .DIN(proc2Dctrl_addr[24]), .Q(n158) );
+  hi1s1 U188 ( .DIN(n158), .Q(Dctrl2Dmem_addr[24]) );
+  hi1s1 U189 ( .DIN(proc2Dctrl_addr[25]), .Q(n160) );
+  hi1s1 U190 ( .DIN(n160), .Q(Dctrl2Dmem_addr[25]) );
+  hi1s1 U191 ( .DIN(proc2Dctrl_addr[26]), .Q(n162) );
+  hi1s1 U192 ( .DIN(n162), .Q(Dctrl2Dmem_addr[26]) );
+  hi1s1 U193 ( .DIN(proc2Dctrl_addr[27]), .Q(n164) );
+  hi1s1 U194 ( .DIN(n164), .Q(Dctrl2Dmem_addr[27]) );
+  hi1s1 U195 ( .DIN(proc2Dctrl_addr[28]), .Q(n166) );
+  hi1s1 U196 ( .DIN(n166), .Q(Dctrl2Dmem_addr[28]) );
+  hi1s1 U197 ( .DIN(proc2Dctrl_addr[29]), .Q(n168) );
+  hi1s1 U198 ( .DIN(n168), .Q(Dctrl2Dmem_addr[29]) );
+  hi1s1 U199 ( .DIN(proc2Dctrl_addr[30]), .Q(n170) );
+  hi1s1 U200 ( .DIN(n170), .Q(Dctrl2Dmem_addr[30]) );
+  hi1s1 U201 ( .DIN(proc2Dctrl_addr[31]), .Q(n172) );
+  hi1s1 U202 ( .DIN(n172), .Q(Dctrl2Dmem_addr[31]) );
+  i1s1 U203 ( .DIN(proc2Dctrl_addr[3]), .Q(n174) );
+  hi1s1 U204 ( .DIN(n174), .Q(Dctrl2Dmem_addr[3]) );
+  i1s1 U205 ( .DIN(proc2Dctrl_addr[8]), .Q(n176) );
+  hi1s1 U206 ( .DIN(n176), .Q(Dctrl2Dmem_addr[8]) );
+  hi1s1 U207 ( .DIN(proc2Dctrl_addr[9]), .Q(n178) );
+  hi1s1 U208 ( .DIN(n178), .Q(Dctrl2Dmem_addr[9]) );
+  i1s1 U209 ( .DIN(proc2Dctrl_addr[10]), .Q(n180) );
+  hi1s1 U210 ( .DIN(n180), .Q(Dctrl2Dmem_addr[10]) );
+  i1s1 U211 ( .DIN(proc2Dctrl_addr[11]), .Q(n182) );
+  hi1s1 U212 ( .DIN(n182), .Q(Dctrl2Dmem_addr[11]) );
+  i1s1 U213 ( .DIN(proc2Dctrl_addr[12]), .Q(n184) );
+  hi1s1 U214 ( .DIN(n184), .Q(Dctrl2Dmem_addr[12]) );
+  i1s1 U215 ( .DIN(proc2Dctrl_addr[14]), .Q(n186) );
+  hi1s1 U216 ( .DIN(n186), .Q(Dctrl2Dmem_addr[14]) );
+  i1s1 U217 ( .DIN(proc2Dctrl_addr[15]), .Q(n188) );
+  hi1s1 U218 ( .DIN(n188), .Q(Dctrl2Dmem_addr[15]) );
+  i1s1 U219 ( .DIN(proc2Dctrl_addr[4]), .Q(n190) );
+  hi1s1 U220 ( .DIN(n190), .Q(Dctrl2Dmem_addr[4]) );
+  i1s1 U221 ( .DIN(proc2Dctrl_addr[5]), .Q(n192) );
+  i1s1 U222 ( .DIN(n192), .Q(Dctrl2Dmem_addr[5]) );
+  i1s1 U223 ( .DIN(proc2Dctrl_addr[7]), .Q(n194) );
+  hi1s1 U224 ( .DIN(n194), .Q(Dctrl2Dmem_addr[7]) );
+  i1s1 U225 ( .DIN(proc2Dctrl_addr[13]), .Q(n196) );
+  i1s1 U226 ( .DIN(n196), .Q(Dctrl2Dmem_addr[13]) );
+  i1s1 U227 ( .DIN(n198), .Q(\current_addr[tag][3] ) );
+  i1s1 U228 ( .DIN(n243), .Q(n200) );
+  i1s1 U229 ( .DIN(n200), .Q(\mem_write_addr[tag][0] ) );
+  i1s1 U230 ( .DIN(n208), .Q(n202) );
+  i1s1 U231 ( .DIN(n202), .Q(\mem_write_addr[idx][1] ) );
+  i1s3 U232 ( .DIN(n285), .Q(n293) );
+  i1s3 U233 ( .DIN(n283), .Q(n277) );
+  hi1s1 U234 ( .DIN(n317), .Q(\mem_write_addr[idx][3] ) );
+  nnd4s2 U235 ( .DIN1(n277), .DIN2(n279), .DIN3(n205), .DIN4(n206), .Q(n296)
+         );
+  dsmxc31s2 U236 ( .DIN1(n278), .DIN2(Dmem2Dctrl_tag[1]), .CLK(n292), .Q(n205)
+         );
+  and3s1 U237 ( .DIN1(n282), .DIN2(n281), .DIN3(n280), .Q(n206) );
+  nnd2s2 U238 ( .DIN1(n251), .DIN2(n321), .Q(n307) );
+  aoi21s1 U239 ( .DIN1(n219), .DIN2(n255), .DIN3(n30), .Q(n276) );
+  and2s1 U240 ( .DIN1(Dctrl2Dmem_addr[13]), .DIN2(n240), .Q(n207) );
+  nnd4s2 U241 ( .DIN1(n261), .DIN2(n260), .DIN3(n259), .DIN4(n258), .Q(n274)
+         );
+  and2s1 U242 ( .DIN1(proc2Dctrl_addr[4]), .DIN2(n240), .Q(n208) );
+  xnr2s2 U243 ( .DIN1(n316), .DIN2(n209), .Q(n263) );
+  and2s1 U244 ( .DIN1(Dctrl2Dmem_addr[5]), .DIN2(n241), .Q(n210) );
+  and2s1 U245 ( .DIN1(proc2Dctrl_addr[7]), .DIN2(n240), .Q(n243) );
+  i1s8 U246 ( .DIN(n74), .Q(mem_write_enable) );
+  nnd2s3 U247 ( .DIN1(n285), .DIN2(n219), .Q(n247) );
+  nb1s1 U248 ( .DIN(n240), .Q(n241) );
+  nnd2s2 U249 ( .DIN1(n216), .DIN2(Dcache_proc_hit), .Q(n58) );
+  nnd2s3 U250 ( .DIN1(n257), .DIN2(n256), .Q(n240) );
+  hi1s1 U251 ( .DIN(n315), .Q(n211) );
+  i1s1 U252 ( .DIN(n211), .Q(n212) );
+  i1s1 U253 ( .DIN(n308), .Q(\mem_write_addr[tag][8] ) );
+  nnd2s1 U254 ( .DIN1(n59), .DIN2(n307), .Q(cache_busy) );
+  nnd3s3 U255 ( .DIN1(n284), .DIN2(n296), .DIN3(n30), .Q(n285) );
+  ib1s1 U256 ( .DIN(n245), .Q(\mem_write_addr[tag][6] ) );
+  ib1s1 U257 ( .DIN(n318), .Q(\mem_write_addr[idx][2] ) );
+  i1s3 U258 ( .DIN(n250), .Q(n251) );
+  i1s1 U259 ( .DIN(n311), .Q(\mem_write_addr[tag][5] ) );
+  nnd2s3 U260 ( .DIN1(n299), .DIN2(n241), .Q(n279) );
+  and3s1 U261 ( .DIN1(n277), .DIN2(n241), .DIN3(n254), .Q(n219) );
+  i1s8 U262 ( .DIN(n313), .Q(\mem_write_addr[tag][3] ) );
+  xnr2s1 U263 ( .DIN1(n321), .DIN2(n215), .Q(n298) );
+  nor2s1 U264 ( .DIN1(n321), .DIN2(n251), .Q(n216) );
+  nor2s1 U265 ( .DIN1(n321), .DIN2(n251), .Q(n217) );
+  hi1s1 U266 ( .DIN(n307), .Q(proc_write_enable) );
+  nor2s1 U267 ( .DIN1(n321), .DIN2(n251), .Q(N25) );
+  nb1s2 U268 ( .DIN(\mem_write_addr[tag][4] ), .Q(\current_addr[tag][4] ) );
+  hi1s1 U269 ( .DIN(n58), .Q(Dctrl2proc_valid) );
+  ib1s1 U270 ( .DIN(n314), .Q(\mem_write_addr[tag][2] ) );
+  i1s1 U271 ( .DIN(n212), .Q(\current_addr[tag][1] ) );
+  hi1s1 U272 ( .DIN(n320), .Q(\mem_write_addr[idx][0] ) );
+  nb1s2 U273 ( .DIN(proc2Dctrl_addr[6]), .Q(Dctrl2Dmem_addr[6]) );
+  oai21s2 U274 ( .DIN1(Dcache_proc_hit), .DIN2(n307), .DIN3(n59), .Q(mem_busy)
+         );
+  ib1s1 U275 ( .DIN(n298), .Q(n303) );
+  ib1s1 U276 ( .DIN(n297), .Q(n304) );
+  ib1s1 U277 ( .DIN(Dcache_proc_hit), .Q(n253) );
+  aoi13s2 U278 ( .DIN2(n27), .DIN3(n29), .DIN4(n26), .DIN1(Dmem2Dctrl_tag[1]), 
+        .Q(n278) );
+  aoi21s1 U279 ( .DIN1(n58), .DIN2(n217), .DIN3(reject_D_req), .Q(n59) );
+  xnr2s1 U280 ( .DIN1(n250), .DIN2(n218), .Q(n297) );
+  xnr2s1 U281 ( .DIN1(current_mem_tag[3]), .DIN2(Dmem2Dctrl_tag[3]), .Q(n281)
+         );
+  xnr2s1 U282 ( .DIN1(current_mem_tag[2]), .DIN2(Dmem2Dctrl_tag[2]), .Q(n282)
+         );
+  xnr2s1 U283 ( .DIN1(current_mem_tag[0]), .DIN2(Dmem2Dctrl_tag[0]), .Q(n280)
+         );
+  xnr2s2 U284 ( .DIN1(n309), .DIN2(n220), .Q(n261) );
+  xnr2s2 U285 ( .DIN1(n311), .DIN2(n221), .Q(n259) );
+  xnr2s2 U286 ( .DIN1(n308), .DIN2(n222), .Q(n260) );
+  xor2s2 U287 ( .DIN1(n223), .DIN2(\mem_write_addr[tag][3] ), .Q(n270) );
+  ib1s1 U288 ( .DIN(Dmem2Dctrl_response[3]), .Q(n289) );
+  ib1s1 U289 ( .DIN(Dmem2Dctrl_response[2]), .Q(n287) );
+  ib1s1 U290 ( .DIN(Dmem2Dctrl_response[1]), .Q(n295) );
+  ib1s1 U291 ( .DIN(Dmem2Dctrl_response[0]), .Q(n291) );
+  xor2s2 U292 ( .DIN1(n224), .DIN2(\mem_write_addr[tag][4] ), .Q(n269) );
+  dsmxc31s1 U293 ( .DIN1(n277), .DIN2(n276), .CLK(n284), .Q(unanswered_miss)
+         );
+  ib1s1 U294 ( .DIN(reset), .Q(n306) );
+  nb1s2 U295 ( .DIN(\mem_write_addr[tag][8] ), .Q(\current_addr[tag][8] ) );
+  ib1s1 U296 ( .DIN(n309), .Q(\current_addr[tag][7] ) );
+  nb1s2 U297 ( .DIN(n207), .Q(\current_addr[tag][6] ) );
+  nb1s2 U298 ( .DIN(\mem_write_addr[tag][5] ), .Q(\current_addr[tag][5] ) );
+  nb1s2 U299 ( .DIN(\mem_write_addr[tag][2] ), .Q(\current_addr[tag][2] ) );
+  ib1s1 U300 ( .DIN(n317), .Q(\current_addr[idx][3] ) );
+  nb1s2 U301 ( .DIN(n210), .Q(\current_addr[idx][2] ) );
+  nb1s2 U302 ( .DIN(\mem_write_addr[idx][1] ), .Q(\current_addr[idx][1] ) );
+  nb1s2 U303 ( .DIN(\mem_write_addr[bo][2] ), .Q(\current_addr[bo][2] ) );
+  nb1s2 U304 ( .DIN(\mem_write_addr[bo][1] ), .Q(\current_addr[bo][1] ) );
+  nb1s2 U305 ( .DIN(\mem_write_addr[bo][0] ), .Q(\current_addr[bo][0] ) );
+  ib1s1 U306 ( .DIN(n200), .Q(\current_addr[tag][0] ) );
+  nb1s2 U307 ( .DIN(\current_addr[tag][1] ), .Q(\mem_write_addr[tag][1] ) );
+  xnr2s2 U308 ( .DIN1(n320), .DIN2(\last_addr[idx][0] ), .Q(n266) );
+  xor2s2 U309 ( .DIN1(n242), .DIN2(n318), .Q(n268) );
+  ib1s1 U310 ( .DIN(\mem_write_addr[tag][5] ), .Q(n244) );
+  ib1s1 U311 ( .DIN(n207), .Q(n245) );
+  xnr2s2 U312 ( .DIN1(n315), .DIN2(n246), .Q(n262) );
+  nnd2s1 U313 ( .DIN1(proc2Dctrl_addr[7]), .DIN2(n300), .Q(n316) );
+  oai21s3 U314 ( .DIN1(n307), .DIN2(n253), .DIN3(n58), .Q(n283) );
+  nnd3s2 U315 ( .DIN1(n279), .DIN2(n298), .DIN3(n297), .Q(n275) );
+  xnr2s1 U316 ( .DIN1(n314), .DIN2(\last_addr[tag][2] ), .Q(n272) );
+  hi1s1 U317 ( .DIN(n299), .Q(n301) );
+  xor2s1 U318 ( .DIN1(n249), .DIN2(n317), .Q(n265) );
+  i1s3 U319 ( .DIN(proc2Dctrl_command[0]), .Q(n257) );
+  hi1s1 U320 ( .DIN(n321), .Q(n252) );
+  or5s2 U321 ( .DIN1(n268), .DIN2(n267), .DIN3(n264), .DIN4(n265), .DIN5(n266), 
+        .Q(n273) );
+  nnd2s1 U322 ( .DIN1(n293), .DIN2(current_mem_tag[2]), .Q(n286) );
+  nnd2s1 U323 ( .DIN1(n293), .DIN2(current_mem_tag[3]), .Q(n288) );
+  nnd2s1 U324 ( .DIN1(n293), .DIN2(current_mem_tag[0]), .Q(n290) );
+  nnd2s1 U325 ( .DIN1(n293), .DIN2(n292), .Q(n294) );
+  nnd2s1 U326 ( .DIN1(proc2Dctrl_addr[8]), .DIN2(n300), .Q(n315) );
+  nnd2s1 U327 ( .DIN1(n301), .DIN2(n241), .Q(n302) );
+  nnd2s1 U328 ( .DIN1(proc2Dctrl_addr[9]), .DIN2(n240), .Q(n314) );
+  nnd2s1 U329 ( .DIN1(proc2Dctrl_addr[14]), .DIN2(n300), .Q(n309) );
+  nnd2s1 U330 ( .DIN1(proc2Dctrl_addr[15]), .DIN2(n300), .Q(n308) );
+  nnd2s1 U331 ( .DIN1(proc2Dctrl_addr[12]), .DIN2(n300), .Q(n311) );
+  nnd2s1 U332 ( .DIN1(proc2Dctrl_addr[13]), .DIN2(n300), .Q(n310) );
+  nnd2s1 U333 ( .DIN1(proc2Dctrl_addr[3]), .DIN2(n300), .Q(n320) );
+  nnd2s1 U334 ( .DIN1(proc2Dctrl_addr[4]), .DIN2(n300), .Q(n319) );
+  nnd2s1 U335 ( .DIN1(proc2Dctrl_addr[10]), .DIN2(n300), .Q(n313) );
+  nnd2s3 U336 ( .DIN1(n257), .DIN2(n256), .Q(n300) );
+  nnd4s1 U337 ( .DIN1(n291), .DIN2(n295), .DIN3(n287), .DIN4(n289), .Q(n255)
+         );
+  xor2s2 U338 ( .DIN1(n310), .DIN2(\last_addr[tag][6] ), .Q(n258) );
+  xnr2s2 U339 ( .DIN1(n319), .DIN2(\last_addr[idx][1] ), .Q(n267) );
+  nnd2s2 U340 ( .DIN1(n262), .DIN2(n263), .Q(n264) );
+  nnd2s2 U341 ( .DIN1(n270), .DIN2(n269), .Q(n271) );
+  or4s3 U342 ( .DIN1(n274), .DIN2(n273), .DIN3(n272), .DIN4(n271), .Q(n299) );
+  oai21s2 U343 ( .DIN1(n247), .DIN2(n287), .DIN3(n286), .Q(n61) );
+  oai21s2 U344 ( .DIN1(n247), .DIN2(n289), .DIN3(n288), .Q(n62) );
+  oai21s2 U345 ( .DIN1(n247), .DIN2(n291), .DIN3(n290), .Q(n63) );
+  oai21s2 U346 ( .DIN1(n247), .DIN2(n295), .DIN3(n294), .Q(n60) );
+endmodule
+
